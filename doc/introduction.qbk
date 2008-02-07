@@ -62,8 +62,8 @@ I will act on your advice to improve the documentation. Thanks and enjoy!
 If you should find a bug or would like to see an additional feature in
 the library, please use the standard Boost methods of dealing with this
 kind of issue rather than emailing me directly. Boost has a very good
-system to [@http://beta.boost.org/support/bugs.html track bugs] and
-[@http://beta.boost.org/community/requests.html features requests],
+system to [@http://www.boost.org/more/bugs.htm track bugs] and
+[@http://www.boost.org/more/requesting_new_features.htm features requests],
 and using it is the best way of dealing with them as soon as possible.
 ]
 

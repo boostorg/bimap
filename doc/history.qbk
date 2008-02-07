@@ -395,7 +395,7 @@ I've just done so:
     documentation and actual coding. The final result of the project must then contain:
 
     *a.* Source code following
-    [@http://beta.boost.org/development/requirements.html#Guidelines Boost programming guidelines].
+    [@http://boost.org/more/lib_guide.htm#Guidelines Boost programming guidelines].
 
     *b.* User documentation. Requirements on the format are loose, though the
     [@http://www.boost.org/tools/quickbook/doc/html/index.html QuickBook] format is

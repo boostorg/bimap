@@ -287,7 +287,7 @@ __TAGGED__
 
 You can browse the code using the [@doxydoc/index.html [*Boost.Bimap doxygen docs]].
 
-The code follows the [@http://beta.boost.org/development/requirements.html Boost Library Requirement and Guidelines] as
+The code follows the [@http://www.boost.org/more/lib_guide.htm Boost Library Requirement and Guidelines] as
 closely as possible.
 
 [table folders in boost/bimap
