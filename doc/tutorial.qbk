@@ -141,7 +141,7 @@ does not compile, since it is trying to construct the view object `lm`.
 This is a common source of errors in user code.
 ]
 
-[@../../example/standard_map_comparison.cpp Go to source code]
+[@/libs/bimap/example/standard_map_comparison.cpp Go to source code]
 
 [import ../example/standard_map_comparison.cpp]
 
@@ -270,7 +270,7 @@ use an `unordered_set_of` that allows constant order look up.
 
 And now lets use it in a complete example
 
-[@../../example/population_bimap.cpp Go to source code]
+[@/libs/bimap/example/population_bimap.cpp Go to source code]
 
 [import ../example/population_bimap.cpp]
 
@@ -282,7 +282,7 @@ And now lets use it in a complete example
 We want to count the repetitions for each word in a text and print them
 in order of appearance.
 
-[@../../example/repetitions_counter.cpp Go to source code]
+[@/libs/bimap/example/repetitions_counter.cpp Go to source code]
 
 [import ../example/repetitions_counter.cpp]
 
@@ -339,7 +339,7 @@ case, a `list_of_relation` is a good choice. The resulting container
 trades insertion and deletion time against fast search capabilities and
 the possibility of bidirectional iteration.
 
-[@../../example/mighty_bimap.cpp Go to source code]
+[@/libs/bimap/example/mighty_bimap.cpp Go to source code]
 
 [code_mighty_bimap]
 
@@ -564,7 +564,7 @@ mutable.
 
 The following examples shows the behaviour of `at(key)`
 
-[@../../example/at_function_examples.cpp Go to source code]
+[@/libs/bimap/example/at_function_examples.cpp Go to source code]
 
 [import ../example/at_function_examples.cpp]
 
@@ -644,7 +644,7 @@ pointing to the same element.
 
 Here is an example that uses projection:
 
-[@../../example/projection.cpp Go to source code]
+[@/libs/bimap/example/projection.cpp Go to source code]
 
 [code_projection_years]
 
@@ -660,7 +660,7 @@ their standard counterparts.
 The `replace` family member functions performs in-place replacement of a given 
 element as the following example shows:
 
-[@../../example/tutorial_modify_and_replace.cpp Go to source code]
+[@/libs/bimap/example/tutorial_modify_and_replace.cpp Go to source code]
 
 [code_tutorial_replace]
 
@@ -706,7 +706,7 @@ pairs, two new placeholders are instantiated: `_first` and `_second`, and
 for a relation, two more complete the set: `_left` and `_right`.
 ]
 
-[@../../example/tutorial_modify_and_replace.cpp Go to source code]
+[@/libs/bimap/example/tutorial_modify_and_replace.cpp Go to source code]
 
 [code_tutorial_modify]
 
@@ -750,7 +750,7 @@ One or both bounds can be omitted with the special unbounded marker:
 
 [code_tutorial_range_unbounded]
 
-[@../../example/tutorial_range.cpp Go to source code]
+[@/libs/bimap/example/tutorial_range.cpp Go to source code]
 
 [endsect]
 
@@ -763,7 +763,7 @@ One or both bounds can be omitted with the special unbounded marker:
 In the following example, the library user inserted comments to guide
 future programmers:
 
-[@../../example/user_defined_names.cpp Go to source code]
+[@/libs/bimap/example/user_defined_names.cpp Go to source code]
 
 [code_user_defined_names_untagged_version]
 
@@ -785,7 +785,7 @@ Tagging a type is very simple:
 
 Now we can rewrite the example:
 
-[@../../example/user_defined_names.cpp Go to source code]
+[@/libs/bimap/example/user_defined_names.cpp Go to source code]
 
 [code_user_defined_names_tagged_version]
 
@@ -866,7 +866,7 @@ But using a bimap has some benefits
 
 [code_unconstrained_collection_only_for_bimap]
 
-[@../../example/unconstrained_collection.cpp Go to source code]
+[@/libs/bimap/example/unconstrained_collection.cpp Go to source code]
 
 [endsect]
 
@@ -931,7 +931,7 @@ is a rewrite of the above example using user defined names:
 
 [code_tutorial_info_hook_tagged_info]
 
-[@../../example/tutorial_info_hook.cpp Go to source code]
+[@/libs/bimap/example/tutorial_info_hook.cpp Go to source code]
 
 [endsect]
 

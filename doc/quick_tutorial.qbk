@@ -139,7 +139,7 @@ If you insert `(1,"one")` and `(1,"1")` in a `std::map<int,std::string>` the sec
 Look how you can reuse code that is intend to be used with std::maps, like the
 print_map function in this example.
 
-[@../../example/simple_bimap.cpp Go to source code]
+[@/libs/bimap/example/simple_bimap.cpp Go to source code]
 
 [code_simple_bimap]
 
