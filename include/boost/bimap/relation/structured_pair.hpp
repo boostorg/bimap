@@ -372,16 +372,16 @@ template< class FirstType, class SecondType, class Info, class Layout1, class La
 bool operator<(const structured_pair<FirstType,SecondType,Info,Layout1> & a,
                const structured_pair<FirstType,SecondType,Info,Layout2> & b)
 {
-    return (  ( a.first  <  b.first  ) ||
-             (( a.first == b.first ) && ( a.second < b.second )));
+    return (  ( (a.first)  <  (b.first)  ) ||
+             (( (a.first) == (b.first) ) && ( (a.second) < (b.second) )));
 }
 
 template< class FirstType, class SecondType, class Info, class Layout1, class Layout2 >
 bool operator<=(const structured_pair<FirstType,SecondType,Info,Layout1> & a,
                 const structured_pair<FirstType,SecondType,Info,Layout2> & b)
 {
-    return (  ( a.first  <  b.first  ) ||
-             (( a.first == b.first ) && ( a.second <= b.second )));
+    return (  ( (a.first)  <  (b.first)  ) ||
+             (( (a.first) == (b.first) ) && ( (a.second) <= (b.second) )));
 }
 
 template< class FirstType, class SecondType, class Info, class Layout1, class Layout2 >
@@ -421,16 +421,16 @@ template< class FirstType, class SecondType, class Info, class Layout, class F, 
 bool operator<(const structured_pair<FirstType,SecondType,Info,Layout> & a,
                const std::pair<F,S> & b)
 {
-    return (  ( a.first  <  b.first  ) ||
-             (( a.first == b.first ) && ( a.second < b.second )));
+    return (  ( (a.first)  <  (b.first)  ) ||
+             (( (a.first) == (b.first) ) && ( (a.second) < (b.second) )));
 }
 
 template< class FirstType, class SecondType, class Info, class Layout, class F, class S >
 bool operator<=(const structured_pair<FirstType,SecondType,Info,Layout> & a,
                 const std::pair<F,S> & b)
 {
-    return (  ( a.first  <  b.first  ) ||
-             (( a.first == b.first ) && ( a.second <= b.second )));
+    return (  ( (a.first)  <  (b.first)  ) ||
+             (( (a.first) == (b.first) ) && ( (a.second) <= (b.second) )));
 }
 
 template< class FirstType, class SecondType, class Info, class Layout, class F, class S >
@@ -470,16 +470,16 @@ template< class FirstType, class SecondType, class Info, class Layout, class F, 
 bool operator<(const std::pair<F,S> & a,
                const structured_pair<FirstType,SecondType,Info,Layout> & b)
 {
-    return (  ( a.first  <  b.first  ) ||
-             (( a.first == b.first ) && ( a.second < b.second )));
+    return (  ( (a.first)  <  (b.first)  ) ||
+             (( (a.first) == (b.first) ) && ( (a.second) < (b.second) )));
 }
 
 template< class FirstType, class SecondType, class Info, class Layout, class F, class S >
 bool operator<=(const std::pair<F,S> & a,
                 const structured_pair<FirstType,SecondType,Info,Layout> & b)
 {
-    return (  ( a.first  <  b.first  ) ||
-             (( a.first == b.first ) && ( a.second <= b.second )));
+    return (  ( (a.first)  <  (b.first)  ) ||
+             (( (a.first) == (b.first) ) && ( (a.second) <= (b.second) )));
 }
 
 template< class FirstType, class SecondType, class Info, class Layout, class F, class S >
