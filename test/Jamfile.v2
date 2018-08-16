@@ -219,15 +219,15 @@ alias bimap_test
         :
             <preserve-target-tests>off
     ]
-#    [ run test_bimap_serialization.cpp
-#          /boost/serialization//boost_serialization
-#        :
-#        :
-#        :
-#        :
-#        :
-#            <preserve-target-tests>off
-#    ]
+    [ run test_bimap_serialization.cpp
+            /boost/serialization//boost_serialization
+        :
+        :
+        :
+        :
+        :
+            <preserve-target-tests>off
+    ]
     [ run test_bimap_info.cpp
         :
         :
@@ -306,9 +306,9 @@ alias bimap_and_boost
         :
             <preserve-target-tests>off
     ]
-#    [ compile ../example/bimap_and_boost/serialization.cpp
-#        /boost/serialization//boost_serialization
-#    ]
+    [ compile ../example/bimap_and_boost/serialization.cpp
+            /boost/serialization//boost_serialization
+    ]
     ;
 
 alias bimap_all_tests
