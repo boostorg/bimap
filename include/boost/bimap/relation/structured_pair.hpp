@@ -218,7 +218,7 @@ class pair_info_hook<TA,TB,::boost::mpl::na,Layout> :
 
     protected:
 
-    pair_info_hook() : base() {}
+    pair_info_hook() : base_() {}
 
     pair_info_hook( BOOST_DEDUCED_TYPENAME ::boost::call_traits<
                         BOOST_DEDUCED_TYPENAME base_::first_type
