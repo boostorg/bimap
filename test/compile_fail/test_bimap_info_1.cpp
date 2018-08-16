@@ -17,33 +17,31 @@
 
 #include <boost/config.hpp>
 
-// Boost.Test
-#include <boost/test/minimal.hpp>
+// Boost.Core.LightweightTest
+#include <boost/core/lightweight_test.hpp>
 
 // Boost.Bimap
 #include <boost/bimap/bimap.hpp>
 #include <boost/bimap/list_of.hpp>
 
-
 void test_bimap_info_1()
 {
     using namespace boost::bimaps;
 
-    typedef bimap< int, list_of<int>, with_info<int> > bm_type;
+    typedef bimap<int,list_of<int>,with_info<int> > bm_type;
     bm_type bm;
-    bm.insert( bm_type::value_type(1,1) );
+    bm.insert(bm_type::value_type(1, 1));
 
     // fail test
     {
-        const bm_type & cbm = bm;
+        bm_type const& cbm = bm;
         cbm.begin()->info = 10;
     }
 }
 
-
-int test_main( int, char* [] )
+int main(int, char*[])
 {
     test_bimap_info_1();
-    return 0;
+    return boost::report_errors();
 }
 

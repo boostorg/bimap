@@ -17,16 +17,16 @@
 
 #include <boost/config.hpp>
 
-// Boost.Test
-#include <boost/test/minimal.hpp>
+// Boost.Core.LightweightTest
+#include <boost/core/lightweight_test.hpp>
 
 #include <boost/bimap/vector_of.hpp>
 
-int test_main( int, char* [] )
+int main(int, char*[])
 {
-    typedef boost::bimaps::vector_of<int>     set_type;
+    typedef boost::bimaps::vector_of<int> set_type;
     typedef boost::bimaps::vector_of_relation set_type_of_relation;
 
-    return 0;
+    return boost::report_errors();
 }
 

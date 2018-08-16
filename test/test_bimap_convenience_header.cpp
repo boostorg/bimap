@@ -17,22 +17,24 @@
 
 #include <boost/config.hpp>
 
-// Boost.Test
-#include <boost/test/minimal.hpp>
+// Boost.Core.LightweightTest
+#include <boost/core/lightweight_test.hpp>
 
 #include <boost/bimap.hpp>
 
 void test_bimap_convenience_header()
 {
-    typedef boost::bimap< int, double > bm_type;
+    typedef boost::bimap<int,double> bm_type;
+
     bm_type bm;
-    bm.insert( bm_type::value_type(1,0.1) );
-    BOOST_CHECK( bm.right.at(0.1) == 1 );
+
+    bm.insert(bm_type::value_type(1, 0.1));
+    BOOST_TEST(bm.right.at(0.1) == 1);
 }
 
-int test_main( int, char* [] )
+int main(int, char*[])
 {
     test_bimap_convenience_header();
-    return 0;
+    return boost::report_errors();
 }
 

@@ -17,10 +17,9 @@
 
 #include <boost/config.hpp>
 
-// Boost.Test
-#include <boost/test/minimal.hpp>
-
-#include <boost/static_assert.hpp>
+// Boost.Core.LightweightTest
+#include <boost/core/lightweight_test.hpp>
+#include <boost/core/lightweight_test_trait.hpp>
 
 // Boost.MPL
 #include <boost/type_traits/is_same.hpp>
@@ -40,69 +39,64 @@
 #include <boost/bimap/tags/support/value_type_of.hpp>
 #include <boost/bimap/tags/support/apply_to_value_type.hpp>
 
-
-
-
-BOOST_BIMAP_TEST_STATIC_FUNCTION( test_metafunctions )
+BOOST_BIMAP_TEST_STATIC_FUNCTION(test_metafunctions)
 {
     using namespace boost::bimaps::tags::support;
     using namespace boost::bimaps::tags;
     using namespace boost::mpl::placeholders;
     using namespace boost;
 
-    struct tag      {};
-    struct value    {};
+    struct tag {};
+    struct value {};
 
     // Test apply_to_value_type metafunction
     // tagged<value,tag> ----(add_const<_>)----> tagged<value const,tag>
-    typedef tagged< value, tag > ttype;
-    typedef apply_to_value_type< add_const<_>,ttype>::type result;
+    typedef tagged<value,tag> ttype;
+    typedef apply_to_value_type<add_const<_>,ttype>::type result;
     typedef is_same<tagged<value const,tag>,result> compare;
     BOOST_MPL_ASSERT_MSG(compare::value,tag,(result));
 }
 
 struct tag_a {};
 struct tag_b {};
-struct data  {};
+struct data {};
 
 void test_function()
 {
-
     using namespace boost::bimaps::tags::support;
     using namespace boost::bimaps::tags;
     using boost::is_same;
 
-    typedef tagged< data, tag_a > data_a;
-    typedef tagged< data, tag_b > data_b;
+    typedef tagged<data,tag_a> data_a;
+    typedef tagged<data,tag_b> data_b;
 
-    BOOST_CHECK(( is_same< data_a::value_type   , data  >::value ));
-    BOOST_CHECK(( is_same< data_a::tag          , tag_a >::value ));
+    BOOST_TEST_TRAIT_TRUE((is_same<data_a::value_type,data>));
+    BOOST_TEST_TRAIT_TRUE((is_same<data_a::tag,tag_a>));
 
-    BOOST_CHECK((
-        is_same< overwrite_tagged < data_a, tag_b >::type, data_b >::value
+    BOOST_TEST_TRAIT_TRUE((
+        is_same< overwrite_tagged<data_a,tag_b>::type,data_b>
     ));
-    BOOST_CHECK((
-        is_same< default_tagged   < data_a, tag_b >::type, data_a >::value
+    BOOST_TEST_TRAIT_TRUE((
+        is_same< default_tagged<data_a,tag_b>::type,data_a>
     ));
-    BOOST_CHECK(( 
-        is_same< default_tagged   < data  , tag_b >::type, data_b >::value
+    BOOST_TEST_TRAIT_TRUE(( 
+        is_same< default_tagged<data,tag_b>::type,data_b>
     ));
 
-    BOOST_CHECK(( is_tagged< data   >::value == false ));
-    BOOST_CHECK(( is_tagged< data_a >::value == true  ));
+    BOOST_TEST_TRAIT_FALSE((is_tagged<data>));
+    BOOST_TEST_TRAIT_TRUE((is_tagged<data_a>));
 
-    BOOST_CHECK(( is_same< value_type_of<data_a>::type, data  >::value ));
-    BOOST_CHECK(( is_same< tag_of       <data_a>::type, tag_a >::value ));
-
+    BOOST_TEST_TRAIT_TRUE((is_same<value_type_of<data_a>::type,data>));
+    BOOST_TEST_TRAIT_TRUE((is_same<tag_of<data_a>::type,tag_a>));
 }
 
-int test_main( int, char* [] )
+int main(int, char*[])
 {
     test_function();
 
     // Test metanfunctions
-    BOOST_BIMAP_CALL_TEST_STATIC_FUNCTION( test_metafunctions );
+    BOOST_BIMAP_CALL_TEST_STATIC_FUNCTION(test_metafunctions);
 
-    return 0;
+    return boost::report_errors();
 }
 

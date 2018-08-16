@@ -1,4 +1,4 @@
-  // Boost.Bimap
+// Boost.Bimap
 //
 // Copyright (c) 2006-2007 Matias Capeletto
 //
@@ -17,10 +17,10 @@
 
 #include <boost/config.hpp>
 
-// Boost.Test
-#include <boost/test/minimal.hpp>
+// Boost.Core.LightweightTest
+#include <boost/core/lightweight_test.hpp>
+#include <boost/core/lightweight_test_trait.hpp>
 
-#include <boost/static_assert.hpp>
 #include <boost/type_traits/is_same.hpp>
 
 // Boost.Bimap
@@ -38,61 +38,50 @@
 
 using namespace boost::bimaps;
 using namespace boost::bimaps::support;
-using namespace boost::bimaps::relation::support ;
+using namespace boost::bimaps::relation::support;
 
-typedef bimap<int, unconstrained_set_of<double> > bm_type;
+typedef bimap<int,unconstrained_set_of<double> > bm_type;
 
-namespace support_metafunctions_test {
-
-    typedef boost::is_same
-    <
-        data_type_by< member_at::left , bm_type >::type,
-        key_type_by < member_at::right, bm_type >::type
-
-    >::type test_metafunction_1;
-    BOOST_STATIC_ASSERT(test_metafunction_1::value);
-
-    typedef boost::is_same
-    <
-        data_type_by< member_at::right, bm_type >::type,
-        key_type_by < member_at::left , bm_type >::type
-
-    >::type test_metafunction_2;
-    BOOST_STATIC_ASSERT(test_metafunction_2::value);
-
-    typedef boost::is_same
-    <
-        map_type_by  < member_at::left , bm_type >::type::value_type,
-        value_type_by< member_at::left , bm_type >::type
-
-    >::type test_metafunction_3;
-    BOOST_STATIC_ASSERT(test_metafunction_3::value);
-
-    typedef boost::is_same
-    <
-        pair_type_by< member_at::left, bm_type::relation>::type,
-        value_type_by< member_at::left , bm_type >::type
-
-    >::type test_metafunction_4;
-    BOOST_STATIC_ASSERT(test_metafunction_4::value);
-    
-} // namespace support_metafunctions_test
+void test_support_metafunctions()
+{
+    BOOST_TEST_TRAIT_TRUE((
+        boost::is_same<
+            data_type_by<member_at::left,bm_type>::type
+          , key_type_by<member_at::right,bm_type>::type
+        >
+    ));
+    BOOST_TEST_TRAIT_TRUE((
+        boost::is_same<
+            data_type_by<member_at::right,bm_type>::type
+          , key_type_by<member_at::left,bm_type>::type
+        >
+    ));
+    BOOST_TEST_TRAIT_TRUE((
+        boost::is_same<
+            map_type_by<member_at::left,bm_type>::type::value_type
+          , value_type_by<member_at::left,bm_type>::type
+        >
+    ));
+    BOOST_TEST_TRAIT_TRUE((
+        boost::is_same<
+            pair_type_by<member_at::left,bm_type::relation>::type
+          , value_type_by<member_at::left,bm_type>::type
+        >
+    ));
+}
 
 void test_bimap_extra()
 {
     // extra tests
     // ---------------------------------------------------------------
-    // This section test small things... when a group of this checks
-    // can be related it is moved to a separate unit test file.
-
-
-
+    // This section tests small things... when a group of these checks
+    // can be related, they'll be moved to a separate unit test file.
 }
 
-
-int test_main( int, char* [] )
+int main(int, char*[])
 {
+    test_support_metafunctions();
     test_bimap_extra();
-    return 0;
+    return boost::report_errors();
 }
 

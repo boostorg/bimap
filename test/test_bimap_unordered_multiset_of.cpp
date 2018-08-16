@@ -17,18 +17,18 @@
 
 #include <boost/config.hpp>
 
-// Boost.Test
-#include <boost/test/minimal.hpp>
+// Boost.Core.LightweightTest
+#include <boost/core/lightweight_test.hpp>
 
 #include <boost/bimap/unordered_multiset_of.hpp>
 
-int test_main( int, char* [] )
+int main(int, char*[])
 {
     typedef boost::bimaps::unordered_multiset_of<int> set_type;
 
     typedef boost::bimaps::
         unordered_multiset_of_relation<> set_type_of_relation;
 
-    return 0;
+    return boost::report_errors();
 }
 
