@@ -26,7 +26,7 @@
 
 #include <boost/call_traits.hpp>
 
-#include <boost/utility/enable_if.hpp>
+#include <boost/core/enable_if.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/mpl/vector.hpp>
@@ -67,7 +67,7 @@ class normal_storage :
     first_type   first;
     second_type  second;
 
-    normal_storage() {}
+    normal_storage() : first(), second() {}
 
     normal_storage(BOOST_DEDUCED_TYPENAME ::boost::call_traits<
                         first_type >::param_type f,
@@ -104,7 +104,7 @@ class mirror_storage :
     second_type  second;
     first_type   first;
 
-    mirror_storage() {}
+    mirror_storage() : second(), first() {}
 
     mirror_storage(BOOST_DEDUCED_TYPENAME ::boost::call_traits<first_type  >::param_type f,
                    BOOST_DEDUCED_TYPENAME ::boost::call_traits<second_type >::param_type s)
@@ -174,7 +174,7 @@ class pair_info_hook :
 
     protected:
 
-    pair_info_hook() {}
+    pair_info_hook() : base_(), info() {}
 
     pair_info_hook( BOOST_DEDUCED_TYPENAME ::boost::call_traits<
                         BOOST_DEDUCED_TYPENAME base_::first_type
@@ -218,7 +218,7 @@ class pair_info_hook<TA,TB,::boost::mpl::na,Layout> :
 
     protected:
 
-    pair_info_hook() {}
+    pair_info_hook() : base_() {}
 
     pair_info_hook( BOOST_DEDUCED_TYPENAME ::boost::call_traits<
                         BOOST_DEDUCED_TYPENAME base_::first_type
@@ -291,7 +291,7 @@ class structured_pair :
 
     > mutant_views;
 
-    structured_pair() {}
+    structured_pair() : base_() {}
 
     structured_pair(BOOST_DEDUCED_TYPENAME boost::call_traits<
                         BOOST_DEDUCED_TYPENAME base_::first_type  >::param_type f,
@@ -372,16 +372,16 @@ template< class FirstType, class SecondType, class Info, class Layout1, class La
 bool operator<(const structured_pair<FirstType,SecondType,Info,Layout1> & a,
                const structured_pair<FirstType,SecondType,Info,Layout2> & b)
 {
-    return (  ( a.first  <  b.first  ) ||
-             (( a.first == b.first ) && ( a.second < b.second )));
+    return (  ( (a.first)  <  (b.first)  ) ||
+             (( (a.first) == (b.first) ) && ( (a.second) < (b.second) )));
 }
 
 template< class FirstType, class SecondType, class Info, class Layout1, class Layout2 >
 bool operator<=(const structured_pair<FirstType,SecondType,Info,Layout1> & a,
                 const structured_pair<FirstType,SecondType,Info,Layout2> & b)
 {
-    return (  ( a.first  <  b.first  ) ||
-             (( a.first == b.first ) && ( a.second <= b.second )));
+    return (  ( (a.first)  <  (b.first)  ) ||
+             (( (a.first) == (b.first) ) && ( (a.second) <= (b.second) )));
 }
 
 template< class FirstType, class SecondType, class Info, class Layout1, class Layout2 >
@@ -421,16 +421,16 @@ template< class FirstType, class SecondType, class Info, class Layout, class F, 
 bool operator<(const structured_pair<FirstType,SecondType,Info,Layout> & a,
                const std::pair<F,S> & b)
 {
-    return (  ( a.first  <  b.first  ) ||
-             (( a.first == b.first ) && ( a.second < b.second )));
+    return (  ( (a.first)  <  (b.first)  ) ||
+             (( (a.first) == (b.first) ) && ( (a.second) < (b.second) )));
 }
 
 template< class FirstType, class SecondType, class Info, class Layout, class F, class S >
 bool operator<=(const structured_pair<FirstType,SecondType,Info,Layout> & a,
                 const std::pair<F,S> & b)
 {
-    return (  ( a.first  <  b.first  ) ||
-             (( a.first == b.first ) && ( a.second <= b.second )));
+    return (  ( (a.first)  <  (b.first)  ) ||
+             (( (a.first) == (b.first) ) && ( (a.second) <= (b.second) )));
 }
 
 template< class FirstType, class SecondType, class Info, class Layout, class F, class S >
@@ -470,16 +470,16 @@ template< class FirstType, class SecondType, class Info, class Layout, class F, 
 bool operator<(const std::pair<F,S> & a,
                const structured_pair<FirstType,SecondType,Info,Layout> & b)
 {
-    return (  ( a.first  <  b.first  ) ||
-             (( a.first == b.first ) && ( a.second < b.second )));
+    return (  ( (a.first)  <  (b.first)  ) ||
+             (( (a.first) == (b.first) ) && ( (a.second) < (b.second) )));
 }
 
 template< class FirstType, class SecondType, class Info, class Layout, class F, class S >
 bool operator<=(const std::pair<F,S> & a,
                 const structured_pair<FirstType,SecondType,Info,Layout> & b)
 {
-    return (  ( a.first  <  b.first  ) ||
-             (( a.first == b.first ) && ( a.second <= b.second )));
+    return (  ( (a.first)  <  (b.first)  ) ||
+             (( (a.first) == (b.first) ) && ( (a.second) <= (b.second) )));
 }
 
 template< class FirstType, class SecondType, class Info, class Layout, class F, class S >

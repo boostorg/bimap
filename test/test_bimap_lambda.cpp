@@ -17,8 +17,8 @@
 
 #include <boost/config.hpp>
 
-// Boost.Test
-#include <boost/test/minimal.hpp>
+// Boost.Core.LightweightTest
+#include <boost/core/lightweight_test.hpp>
 
 // Boost.Bimap
 #include <boost/bimap/support/lambda.hpp>
@@ -31,17 +31,18 @@ void test_bimap_lambda()
     typedef bimap<int,double> bm;
 
     bm b;
-    b.insert( bm::value_type(1,0.1) );
 
-    BOOST_CHECK( b.size() == 1 );
-    BOOST_CHECK( b.left.modify_key ( b.left.begin(),  _key =   2 ) );
-    BOOST_CHECK( b.left.modify_data( b.left.begin(), _data = 0.2 ) );
-    BOOST_CHECK( b.left.range( _key >= 1, _key < 3 ).first == b.left.begin() );
+    b.insert(bm::value_type(1, 0.1));
+
+    BOOST_TEST(b.size() == 1);
+    BOOST_TEST(b.left.modify_key(b.left.begin(), _key = 2));
+    BOOST_TEST(b.left.modify_data(b.left.begin(), _data = 0.2));
+    BOOST_TEST(b.left.range(_key >= 1, _key < 3).first == b.left.begin());
 }
 
-int test_main( int, char* [] )
+int main(int, char*[])
 {
     test_bimap_lambda();
-    return 0;
+    return boost::report_errors();
 }
 

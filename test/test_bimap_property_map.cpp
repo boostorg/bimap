@@ -16,6 +16,7 @@
 #define _SCL_SECURE_NO_DEPRECATE
 
 #include <boost/config.hpp>
+#include <boost/type_traits/is_convertible.hpp>
 
 // std
 #include <set>
@@ -25,7 +26,8 @@
 #include <algorithm>
 
 // Boost.Test
-#include <boost/test/minimal.hpp>
+#include <boost/core/lightweight_test.hpp>
+#include <boost/core/lightweight_test_trait.hpp>
 
 // Boost.Bimap
 
@@ -37,40 +39,49 @@
 
 #include <boost/bimap/bimap.hpp>
 
-
-template <class Map>
-void test_readable_property_map(
-    Map m,
-    typename boost::property_traits<Map>::  key_type const & key,
-    typename boost::property_traits<Map>::value_type const & value
-)
+template <typename Map>
+void
+    test_readable_property_map(
+        Map m
+      , BOOST_DEDUCED_TYPENAME boost::property_traits<
+            Map
+        >::key_type const& key
+      , BOOST_DEDUCED_TYPENAME boost::property_traits<
+            Map
+        >::value_type const& value
+    )
 {
-    // TODO Add STATIC_ASSERT(
-    //              boost::property_traits<Map>::category is readable )
+    BOOST_TEST_TRAIT_TRUE((
+        boost::is_convertible<
+            BOOST_DEDUCED_TYPENAME boost::property_traits<Map>::category
+          , boost::readable_property_map_tag
+        >
+    ));
 
-    BOOST_CHECK( get(m,key) == value );
-    //BOOST_CHECK( m[key]     == value );
+    BOOST_TEST(get(m, key) == value);
+#if 0
+    BOOST_TEST(m[key] == value);
+#endif
 }
-
 
 void test_bimap_property_map()
 {
     using namespace boost::bimaps;
 
-    typedef bimap< set_of<int>, unordered_set_of<double> > bm;
+    typedef bimap<set_of<int>,unordered_set_of<double> > bm;
 
     bm b;
-    b.insert( bm::value_type(1,0.1) );
-    b.insert( bm::value_type(2,0.2) );
-    b.insert( bm::value_type(3,0.3) );
+    b.insert(bm::value_type(1, 0.1));
+    b.insert(bm::value_type(2, 0.2));
+    b.insert(bm::value_type(3, 0.3));
 
-    test_readable_property_map(b.left ,  1,0.1);
-    test_readable_property_map(b.right,0.1,  1);
+    test_readable_property_map(b.left, 1, 0.1);
+    test_readable_property_map(b.right, 0.1, 1);
 }
 
-int test_main( int, char* [] )
+int main(int, char*[])
 {
     test_bimap_property_map();
-    return 0;
+    return boost::report_errors();
 }
 

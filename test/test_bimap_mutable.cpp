@@ -1,4 +1,4 @@
-  // Boost.Bimap
+// Boost.Bimap
 //
 // Copyright (c) 2006-2007 Matias Capeletto
 //
@@ -17,8 +17,8 @@
 
 #include <boost/config.hpp>
 
-// Boost.Test
-#include <boost/test/minimal.hpp>
+// Boost.Core.LightweightTest
+#include <boost/core/lightweight_test.hpp>
 
 // Boost.Bimap
 #include <boost/bimap/bimap.hpp>
@@ -28,82 +28,82 @@
 
 using namespace boost::bimaps;
 
-template< class BimapType >
+template <typename BimapType>
 void test_bimap_mutable()
 {
     typedef BimapType bm_type;
 
     bm_type bm;
-    bm.insert( BOOST_DEDUCED_TYPENAME bm_type::value_type(1,0.1) );
+    bm.insert(BOOST_DEDUCED_TYPENAME bm_type::value_type(1, 0.1));
 
-    const bm_type & cbm = bm;
+    bm_type const& cbm = bm;
 
     // Map Mutable Iterator test
     {
+        BOOST_DEDUCED_TYPENAME bm_type::left_iterator iter = bm.left.begin();
+        iter->second = 0.2;
+        BOOST_TEST(iter->second == bm.left.begin()->second);
 
-    BOOST_DEDUCED_TYPENAME bm_type::left_iterator iter = bm.left.begin();
-    iter->second = 0.2;
-    BOOST_CHECK( iter->second == bm.left.begin()->second );
+        BOOST_DEDUCED_TYPENAME bm_type::left_const_iterator citer = (
+            bm.left.begin()
+        );
+        BOOST_TEST(citer->second == bm.left.begin()->second);
 
-    BOOST_DEDUCED_TYPENAME bm_type::left_const_iterator citer = bm.left.begin();
-    BOOST_CHECK( citer->second == bm.left.begin()->second );
-
-    BOOST_DEDUCED_TYPENAME bm_type::left_const_iterator cciter = cbm.left.begin();
-    BOOST_CHECK( cciter->second == cbm.left.begin()->second );
-
+        BOOST_DEDUCED_TYPENAME bm_type::left_const_iterator cciter = (
+            cbm.left.begin()
+        );
+        BOOST_TEST(cciter->second == cbm.left.begin()->second);
     }
 
     // Set Mutable Iterator test
     {
+        BOOST_DEDUCED_TYPENAME bm_type::iterator iter = bm.begin();
+        iter->right = 0.1;
+        BOOST_TEST(iter->right == bm.begin()->right);
 
-    BOOST_DEDUCED_TYPENAME bm_type::iterator iter = bm.begin();
-    iter->right = 0.1;
-    BOOST_CHECK( iter->right == bm.begin()->right );
+        BOOST_DEDUCED_TYPENAME bm_type::const_iterator citer = bm.begin();
+        BOOST_TEST(citer->right == bm.begin()->right);
 
-    BOOST_DEDUCED_TYPENAME bm_type::const_iterator citer = bm.begin();
-    BOOST_CHECK( citer->right == bm.begin()->right );
-
-    BOOST_DEDUCED_TYPENAME bm_type::const_iterator cciter = cbm.begin();
-    BOOST_CHECK( cciter->left == cbm.begin()->left );
-
+        BOOST_DEDUCED_TYPENAME bm_type::const_iterator cciter = cbm.begin();
+        BOOST_TEST(cciter->left == cbm.begin()->left);
     }
 
     // Map Assignable Reference test
     {
+        BOOST_DEDUCED_TYPENAME bm_type::left_reference r = *bm.left.begin();
+        r.second = 0.2;
+        BOOST_TEST(r == *bm.left.begin());
 
-    BOOST_DEDUCED_TYPENAME bm_type::left_reference r = *bm.left.begin();
-    r.second = 0.2;
-    BOOST_CHECK( r == *bm.left.begin() );
+        BOOST_DEDUCED_TYPENAME bm_type::left_const_reference cr = *(
+            bm.left.begin()
+        );
+        BOOST_TEST(cr == *bm.left.begin());
 
-    BOOST_DEDUCED_TYPENAME bm_type::left_const_reference cr = *bm.left.begin();
-    BOOST_CHECK( cr == *bm.left.begin() );
-
-    BOOST_DEDUCED_TYPENAME bm_type::left_const_reference ccr = *cbm.left.begin();
-    BOOST_CHECK( ccr == *cbm.left.begin() );
-
+        BOOST_DEDUCED_TYPENAME bm_type::left_const_reference ccr = *(
+            cbm.left.begin()
+        );
+        BOOST_TEST(ccr == *cbm.left.begin());
     }
 
     // Set Assignable Reference test
     {
+        BOOST_DEDUCED_TYPENAME bm_type::reference r = *bm.begin();
+        r.right = 0.1;
+        BOOST_TEST(r == *bm.begin());
 
-    BOOST_DEDUCED_TYPENAME bm_type::reference r = *bm.begin();
-    r.right = 0.1;
-    BOOST_CHECK( r == *bm.begin() );
+        BOOST_DEDUCED_TYPENAME bm_type::const_reference cr = *bm.begin();
+        BOOST_TEST(cr == *bm.begin());
 
-    BOOST_DEDUCED_TYPENAME bm_type::const_reference cr = *bm.begin();
-    BOOST_CHECK( cr == *bm.begin() );
-
-    BOOST_DEDUCED_TYPENAME bm_type::const_reference ccr = *cbm.begin();
-    BOOST_CHECK( ccr == *bm.begin() );
-
+        BOOST_DEDUCED_TYPENAME bm_type::const_reference ccr = *cbm.begin();
+        BOOST_TEST(ccr == *bm.begin());
     }
 }
 
-int test_main( int, char* [] )
+int main(int, char*[])
 {
-    test_bimap_mutable< bimap< int, list_of<double> > >();
-    test_bimap_mutable< bimap< int, vector_of<double> > >();
-    test_bimap_mutable< bimap< int, unconstrained_set_of<double> > >();
-    return 0;
+    test_bimap_mutable<bimap<int,list_of<double> > >();
+    test_bimap_mutable<bimap<int,vector_of<double> > >();
+    test_bimap_mutable<bimap<int,unconstrained_set_of<double> > >();
+    return boost::report_errors();
 }
 

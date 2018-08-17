@@ -26,8 +26,8 @@
 #include <sstream>
 #include <algorithm>
 
-// Boost.Test
-#include <boost/test/minimal.hpp>
+// Boost.Core.LightweightTest
+#include <boost/core/lightweight_test.hpp>
 
 // Boost
 #include <boost/archive/text_oarchive.hpp>
@@ -37,22 +37,19 @@
 #include <boost/bimap/bimap.hpp>
 
 
-template< class Bimap, class Archive >
-void save_bimap(const Bimap & b, Archive & ar)
+template <typename Bimap, typename Archive>
+void save_bimap(Bimap const& b, Archive& ar)
 {
     using namespace boost::bimaps;
 
     ar << b;
 
-    const typename Bimap::left_const_iterator left_iter = b.left.begin();
+    typename Bimap::left_const_iterator const left_iter = b.left.begin();
     ar << left_iter;
 
-    const typename Bimap::const_iterator iter = ++b.begin();
+    typename Bimap::const_iterator const iter = ++b.begin();
     ar << iter;
 }
-
-
-
 
 void test_bimap_serialization()
 {
@@ -60,11 +57,11 @@ void test_bimap_serialization()
 
     typedef bimap<int,double> bm;
 
-    std::set< bm::value_type > data;
-    data.insert( bm::value_type(1,0.1) );
-    data.insert( bm::value_type(2,0.2) );
-    data.insert( bm::value_type(3,0.3) );
-    data.insert( bm::value_type(4,0.4) );
+    std::set<bm::value_type> data;
+    data.insert(bm::value_type(1, 0.1));
+    data.insert(bm::value_type(2, 0.2));
+    data.insert(bm::value_type(3, 0.3));
+    data.insert(bm::value_type(4, 0.4));
 
     std::ostringstream oss;
 
@@ -72,7 +69,7 @@ void test_bimap_serialization()
     {
         bm b;
 
-        b.insert(data.begin(),data.end());
+        b.insert(data.begin(), data.end());
 
         boost::archive::text_oarchive oa(oss);
 
@@ -88,27 +85,25 @@ void test_bimap_serialization()
 
         ia >> b;
 
-        BOOST_CHECK( std::equal( b.begin(), b.end(), data.begin() ) );
+        BOOST_TEST(std::equal(b.begin(), b.end(), data.begin()));
 
         bm::left_const_iterator left_iter;
 
         ia >> left_iter;
 
-        BOOST_CHECK( left_iter == b.left.begin() );
+        BOOST_TEST(left_iter == b.left.begin());
 
         bm::const_iterator iter;
 
         ia >> iter;
 
-        BOOST_CHECK( iter == ++b.begin() );
+        BOOST_TEST(iter == ++b.begin());
     }
-
 }
 
-
-int test_main( int, char* [] )
+int main(int, char*[])
 {
     test_bimap_serialization();
-    return 0;
+    return boost::report_errors();
 }
 

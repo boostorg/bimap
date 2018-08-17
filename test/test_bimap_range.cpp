@@ -17,8 +17,8 @@
 
 #include <boost/config.hpp>
 
-// Boost.Test
-#include <boost/test/minimal.hpp>
+// Boost.Core.LightweightTest
+#include <boost/core/lightweight_test.hpp>
 
 #include <boost/config.hpp>
 
@@ -31,14 +31,17 @@
 #include <boost/bimap/multiset_of.hpp>
 #include <boost/bimap/support/lambda.hpp>
 
-
-template< class ForwardReadableRange, class UnaryFunctor >
-UnaryFunctor for_each(const ForwardReadableRange & r, UnaryFunctor func)
+template <typename ForwardReadableRange, typename UnaryFunctor>
+UnaryFunctor for_each(ForwardReadableRange const& r, UnaryFunctor func)
 {
     typedef typename 
     boost::range_const_iterator<ForwardReadableRange>::type const_iterator;
 
-    for(const_iterator i= boost::begin(r), iend= boost::end(r); i!=iend; ++i )
+    for (
+        const_iterator i = boost::begin(r), iend = boost::end(r);
+        i != iend;
+        ++i
+    )
     {
         func(*i);
     }
@@ -48,10 +51,10 @@ UnaryFunctor for_each(const ForwardReadableRange & r, UnaryFunctor func)
 
 struct do_something_with_a_pair
 {
-    template< class Pair >
-    void operator()(const Pair & p)
+    template <typename Pair>
+    void operator()(Pair const& p)
     {
-        BOOST_CHECK( p.first && p.second );
+        BOOST_TEST(p.first && p.second);
     }
 };
 
@@ -59,76 +62,83 @@ int test_bimap_range()
 {
     using namespace boost::bimaps;
 
-    typedef bimap< double, multiset_of<int> > bm_type;
-
+    typedef bimap<double,multiset_of<int> > bm_type;
 
     bm_type bm;
-    bm.insert( bm_type::value_type(1.1 , 1) );
-    bm.insert( bm_type::value_type(2.2 , 2) );
-    bm.insert( bm_type::value_type(3.3 , 3) );
-    bm.insert( bm_type::value_type(4.4 , 4) );
 
-
-    for_each( bm.left.range( 1.0 < _key, _key < 5.0 ),
-              do_something_with_a_pair() );
-
-    for_each( bm.right.range( unbounded, _key <= 2 ),
-              do_something_with_a_pair() );
-
+    bm.insert(bm_type::value_type(1.1, 1));
+    bm.insert(bm_type::value_type(2.2, 2));
+    bm.insert(bm_type::value_type(3.3, 3));
+    bm.insert(bm_type::value_type(4.4, 4));
+    for_each(
+        bm.left.range(1.0 < _key, _key < 5.0)
+      , do_something_with_a_pair()
+    );
+    for_each(
+        bm.right.range(unbounded, _key <= 2)
+      , do_something_with_a_pair()
+    );
 
     // left range
     {
-
-    bm_type::left_range_type r = bm.left.range( 2.0 < _key, _key < 4.0 );
-    BOOST_CHECK( ! boost::empty(r) );
-    BOOST_CHECK( boost::begin(r) == bm.left.upper_bound(2.0) );
-    BOOST_CHECK( boost::end(r)   == bm.left.lower_bound(4.0) );
-
+        bm_type::left_range_type r = bm.left.range(2.0 < _key, _key < 4.0);
+        BOOST_TEST(!boost::empty(r));
+        BOOST_TEST(boost::begin(r) == bm.left.upper_bound(2.0));
+        BOOST_TEST(boost::end(r) == bm.left.lower_bound(4.0));
     }
 
     // right range
     {
-
-    bm_type::right_range_type r = bm.right.range( 2 <= _key, _key <= 3 );
-    BOOST_CHECK( ! boost::empty(r) );
-    BOOST_CHECK( boost::begin(r) == bm.right.lower_bound(2) );
-    BOOST_CHECK( boost::end(r)   == bm.right.upper_bound(3) );
-
+        bm_type::right_range_type r = bm.right.range(2 <= _key, _key <= 3);
+        BOOST_TEST(!boost::empty(r));
+        BOOST_TEST(boost::begin(r) == bm.right.lower_bound(2));
+        BOOST_TEST(boost::end(r) == bm.right.upper_bound(3));
     }
 
     // const range from range
     {
-
-    bm_type:: left_const_range_type lr = bm. left.range( unbounded, _key < 4.0 );
-    bm_type::right_const_range_type rr = bm.right.range( 2 < _key ,  unbounded );
-
+        bm_type::left_const_range_type lr = bm.left.range(
+            unbounded
+          , _key < 4.0
+        );
+        bm_type::right_const_range_type rr = bm.right.range(
+            2 < _key
+          , unbounded
+        );
+        BOOST_TEST(!boost::empty(lr));
+        BOOST_TEST(boost::end(lr) == bm.left.lower_bound(4.0));
+        BOOST_TEST(!boost::empty(rr));
+        BOOST_TEST(boost::begin(rr) == bm.right.lower_bound(3));
     }
 
-    const bm_type & cbm = bm;
+    bm_type const& cbm = bm;
 
     // left const range
     {
-    bm_type:: left_const_range_type r = cbm.left.range( unbounded, unbounded );
-    BOOST_CHECK( ! boost::empty(r) );
-    BOOST_CHECK( boost::begin(r) == cbm.left.begin() );
-
+        bm_type::left_const_range_type r = cbm.left.range(
+            unbounded
+          , unbounded
+        );
+        BOOST_TEST(!boost::empty(r));
+        BOOST_TEST(boost::begin(r) == cbm.left.begin());
     }
 
     // right const range
     {
-
-    bm_type::right_const_range_type r = cbm.right.range( 1 < _key, _key < 1 );
-    BOOST_CHECK( boost::empty(r) );
-
+        bm_type::right_const_range_type r = cbm.right.range(
+            1 < _key
+          , _key < 1
+        );
+        BOOST_TEST(boost::empty(r));
     }
 
     return 0;
 }
 //]
 
-int test_main( int, char* [] )
+int main(int, char*[])
 {
     test_bimap_range();
-    return 0;
+    return boost::report_errors();
 }
 

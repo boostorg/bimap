@@ -17,8 +17,8 @@
 
 #include <boost/config.hpp>
 
-// Boost.Test
-#include <boost/test/minimal.hpp>
+// Boost.Core.LightweightTest
+#include <boost/core/lightweight_test.hpp>
 
 // std
 #include <sstream>
@@ -37,53 +37,62 @@
 
 namespace ba =  boost::assign;
 
-
 void test_bimap_assign()
 {
     using namespace boost::bimaps;
 
     // test
     {
-        typedef bimap< list_of<int>, double > bm_type;
-        bm_type bm = ba::list_of< bm_type::relation >(1,0.1)(2,0.2)(3,0.3);
-        ba::push_back( bm )(4,0.4)(5,0.5);
-        ba::insert( bm.right )(0.5,5)(0.6,6);
-        ba::push_back( bm.left )(6,0.6)(7,0.7);
+        typedef bimap<list_of<int>,double> bm_type;
+
+        bm_type bm = ba::list_of<bm_type::relation>(1, 0.1)(2, 0.2)(3, 0.3);
+
+        ba::push_back(bm)(4, 0.4)(5, 0.5);
+        ba::insert(bm.right)(0.5, 5)(0.6, 6);
+        ba::push_back(bm.left)(6, 0.6)(7, 0.7);
     }
 
     // test
     {
-        typedef bimap< unordered_multiset_of<int>, vector_of<double>,
-                       list_of_relation > bm_type;
-        bm_type bm = ba::list_of< bm_type::relation >(1,0.1)(2,0.2)(3,0.3);
-        ba::push_front( bm )(4,0.4)(5,0.5);
-        ba::push_back( bm.right )(0.6,6)(0.7,7);
-        ba::insert( bm.left )(8,0.8)(9,0.9);
+        typedef bimap<
+            unordered_multiset_of<int>
+          , vector_of<double>
+          , list_of_relation
+        > bm_type;
+
+        bm_type bm = ba::list_of< bm_type::relation >(1, 0.1)(2, 0.2)(3, 0.3);
+
+        ba::push_front(bm)(4, 0.4)(5, 0.5);
+        ba::push_back(bm.right)(0.6, 6)(0.7, 7);
+        ba::insert(bm.left)(8, 0.8)(9, 0.9);
     }
 
     // test
     {
-        typedef bimap< int, vector_of<double>, right_based > bm_type;
-        bm_type bm = ba::list_of< bm_type::relation >(1,0.1)(2,0.2)(3,0.3);
-        ba::push_back( bm )(4,0.4)(5,0.5);
-        ba::push_back( bm.right )(0.6,6)(0.7,7);
-        ba::insert( bm.left )(8,0.8)(9,0.9);
+        typedef bimap<int,vector_of<double>,right_based> bm_type;
+
+        bm_type bm = ba::list_of<bm_type::relation>(1, 0.1)(2, 0.2)(3, 0.3);
+
+        ba::push_back(bm)(4, 0.4)(5, 0.5);
+        ba::push_back(bm.right)(0.6, 6)(0.7, 7);
+        ba::insert(bm.left)(8, 0.8)(9, 0.9);
     }
 
     // test
     {
-        typedef bimap< int, vector_of<double>, set_of_relation<> > bm_type;
-        bm_type bm = ba::list_of< bm_type::relation >(1,0.1)(2,0.2)(3,0.3);
-        ba::insert( bm )(4,0.4)(5,0.5);
-        ba::push_back( bm.right )(0.6,6)(0.7,7);
-        ba::insert( bm.left )(8,0.8)(9,0.9);
+        typedef bimap<int,vector_of<double>,set_of_relation<> > bm_type;
+
+        bm_type bm = ba::list_of<bm_type::relation>(1, 0.1)(2, 0.2)(3, 0.3);
+
+        ba::insert(bm)(4, 0.4)(5, 0.5);
+        ba::push_back(bm.right)(0.6,6)(0.7, 7);
+        ba::insert(bm.left)(8, 0.8)(9, 0.9);
     }
 }
 
-
-int test_main( int, char* [] )
+int main(int, char*[])
 {
     test_bimap_assign();
-    return 0;
+    return boost::report_errors();
 }
 
