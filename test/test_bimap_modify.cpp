@@ -24,7 +24,9 @@
 #include <boost/bimap/support/lambda.hpp>
 #include <boost/bimap/bimap.hpp>
 
-struct id{};
+struct id
+{
+};
 
 void test_bimap_modify()
 {
@@ -139,7 +141,20 @@ void test_bimap_modify()
         // Add checks for replace_key and replace_data
     }
 
-    // Add checks for fail to replace in right map view
+    // fail to replace in right map view
+    {
+        bm::right_iterator i = b.right.begin();
+
+        result = b.right.replace(i, bm::right_value_type(100, 2));
+
+        BOOST_TEST(!result);
+        BOOST_TEST(b.size() == 2);
+        BOOST_TEST((i->first == 100) && (i->second == 1));
+        BOOST_TEST(b.right.at(100) == 1);
+        BOOST_TEST(b.right.at(200) == 2);
+
+        // Add checks for replace_key and replace_data
+    }
 
     // Add checks for fail to replace in set of relations view
 
@@ -165,7 +180,20 @@ void test_bimap_modify()
         BOOST_TEST(b.left.at(2) == 200);
     }
 
-    // Add checks for successful modify in right map view
+    // successful modify in right map view
+    {
+        result = b.right.modify_key(b.right.begin(), _key = 100);
+
+        BOOST_TEST(result);
+        BOOST_TEST(b.size() == 1);
+        BOOST_TEST(b.right.at(100) == 2);
+
+        result = b.right.modify_data(b.right.begin(), _data = 1);
+
+        BOOST_TEST(result);
+        BOOST_TEST(b.size() == 1);
+        BOOST_TEST(b.right.at(100) == 1);
+    }
 
     // Add checks for fails to modify in left map view
 }
