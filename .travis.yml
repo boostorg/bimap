@@ -37,7 +37,7 @@ matrix:
 
     - os: linux
       compiler: g++-4.6
-      env: TOOLSET=gcc COMPILER=g++-4.6 CXXSTD=03,0x TEST_SUITE=bimap_all_tests
+      env: TOOLSET=gcc COMPILER=g++-4.6 CXXSTD=03,0x TEST_SUITE=bimap_tests_no_xpressive
       addons:
         apt:
           packages:
@@ -152,7 +152,7 @@ matrix:
             - llvm-toolchain-precise-3.7
 
     - os: linux
-      env: TOOLSET=clang COMPILER=clang++-3.8 CXXSTD=03,11,14,1z TEST_SUITE=bimap_all_tests
+      env: TOOLSET=clang COMPILER=clang++-3.8 CXXSTD=03,11,14,1z TEST_SUITE=bimap_tests_no_serialization
       addons:
         apt:
           packages:
@@ -162,7 +162,7 @@ matrix:
             - llvm-toolchain-precise-3.8
 
     - os: linux
-      env: TOOLSET=clang COMPILER=clang++-3.9 CXXSTD=03,11,14,1z TEST_SUITE=bimap_all_tests
+      env: TOOLSET=clang COMPILER=clang++-3.9 CXXSTD=03,11,14,1z TEST_SUITE=bimap_tests_no_serialization
       addons:
         apt:
           packages:

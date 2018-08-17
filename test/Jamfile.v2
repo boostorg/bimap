@@ -219,15 +219,6 @@ alias bimap_test
         :
             <preserve-target-tests>off
     ]
-    [ run test_bimap_serialization.cpp
-            /boost/serialization//boost_serialization
-        :
-        :
-        :
-        :
-        :
-            <preserve-target-tests>off
-    ]
     [ run test_bimap_info.cpp
         :
         :
@@ -290,6 +281,18 @@ alias bimap_and_boost
         :
             <preserve-target-tests>off
     ]
+    [ run ../example/bimap_and_boost/typeof.cpp
+        :
+        :
+        :
+        :
+        :
+            <preserve-target-tests>off
+    ]
+    ;
+
+alias bimap_with_xpressive
+    :
     [ run ../example/bimap_and_boost/xpressive.cpp
         :
         :
@@ -298,7 +301,12 @@ alias bimap_and_boost
         :
             <preserve-target-tests>off
     ]
-    [ run ../example/bimap_and_boost/typeof.cpp
+    ;
+
+alias bimap_with_serialization
+    :
+    [ run test_bimap_serialization.cpp
+            /boost/serialization//boost_serialization
         :
         :
         :
@@ -311,11 +319,30 @@ alias bimap_and_boost
     ]
     ;
 
-alias bimap_all_tests
+alias bimap_minimal_tests
     :
         bimap_tagged_test
         bimap_relation_test
         bimap_test
         bimap_compile_fail_test
         bimap_and_boost
+    ;
+
+alias bimap_tests_no_xpressive
+    :
+        bimap_minimal_tests
+        bimap_with_serialization
+    ;
+
+alias bimap_tests_no_serialization
+    :
+        bimap_minimal_tests
+        bimap_with_xpressive
+    ;
+
+alias bimap_all_tests
+    :
+        bimap_minimal_tests
+        bimap_with_xpressive
+        bimap_with_serialization
     ;

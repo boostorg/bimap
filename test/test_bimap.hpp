@@ -290,8 +290,12 @@ void test_simple_unordered_associative_container(Container& c, Data const& d)
 {
     c.clear();
     c.insert(d.begin(), d.end());
-    BOOST_TEST(c.bucket_count() * c.max_load_factor() >= d.size());
-    BOOST_TEST(c.max_bucket_count() >= c.bucket_count());
+
+    Container const& const_c = c;
+    BOOST_TEST(
+        const_c.bucket_count() * const_c.max_load_factor() >= d.size()
+    );
+    BOOST_TEST(const_c.max_bucket_count() >= const_c.bucket_count());
 
     for (
         BOOST_DEDUCED_TYPENAME Data::const_iterator di = d.begin(
@@ -310,8 +314,9 @@ void test_simple_unordered_associative_container(Container& c, Data const& d)
 
         // const
         {
-            Container const& const_c = c;
-            BOOST_TEST(const_c.bucket_size(const_c.bucket(*di)) == 1);
+            // Hash collisions should have no effect on the correctness of an
+            // unordered simple associative container. -- Cromwell D. Enage
+//            BOOST_TEST(const_c.bucket_size(const_c.bucket(*di)) == 1);
 
             BOOST_DEDUCED_TYPENAME Container::size_type nb = const_c.bucket(
                 *const_c.find(*di)
@@ -379,8 +384,12 @@ void test_pair_unordered_associative_container(Container& c, Data const& d)
 {
     c.clear();
     c.insert(d.begin(), d.end());
-    BOOST_TEST(c.bucket_count() * c.max_load_factor() >= d.size());
-    BOOST_TEST(c.max_bucket_count() >= c.bucket_count());
+
+    Container const& const_c = c;
+    BOOST_TEST(
+        const_c.bucket_count() * const_c.max_load_factor() >= d.size()
+    );
+    BOOST_TEST(const_c.max_bucket_count() >= const_c.bucket_count());
 
     for (
         BOOST_DEDUCED_TYPENAME Data::const_iterator di = d.begin(
@@ -399,8 +408,11 @@ void test_pair_unordered_associative_container(Container& c, Data const& d)
 
         // const
         {
-            Container const& const_c = c;
-            BOOST_TEST(const_c.bucket_size(const_c.bucket(di->first)) == 1);
+            // The test commented out below fails on 32-bit Windows platforms
+            // but works on 64-bit Windows platforms and others.  Regardless,
+            // hash collisions should have no effect on the correctness of an
+            // unordered pair associative container. -- Cromwell D. Enage
+//            BOOST_TEST(const_c.bucket_size(const_c.bucket(di->first)) == 1);
 
             BOOST_DEDUCED_TYPENAME Container::size_type nb = const_c.bucket(
                 const_c.find(di->first)->first
