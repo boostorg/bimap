@@ -307,6 +307,7 @@ template< class Container, class Data >
 void test_simple_unordered_associative_container(Container & c, const Data & d)
 {
     c.clear();
+    c.reserve( std::distance(d.begin(), d.end()) );
     c.insert( d.begin(), d.end() );
 
     BOOST_CHECK( c.bucket_count() * c.max_load_factor() >= d.size() );
@@ -326,9 +327,13 @@ void test_simple_unordered_associative_container(Container & c, const Data & d)
         {
             const Container & const_c = c;
 
+            // Hash collisions should have no effect on the correctness of an
+            // unordered simple associative container. -- Cromwell D. Enage
+/*
             BOOST_CHECK(
                 const_c.bucket_size(const_c.bucket(*di)) == 1
             );
+*/
 
             typename Container::size_type nb =
                 const_c.bucket(*const_c.find(*di));
@@ -394,6 +399,7 @@ template< class Container, class Data >
 void test_pair_unordered_associative_container(Container & c, const Data & d)
 {
     c.clear();
+    c.reserve( std::distance(d.begin(), d.end()) );
     c.insert( d.begin(), d.end() );
 
     BOOST_CHECK( c.bucket_count() * c.max_load_factor() >= d.size() );
@@ -414,7 +420,13 @@ void test_pair_unordered_associative_container(Container & c, const Data & d)
         {
             const Container & const_c = c;
 
+            // The test commented out below fails on 32-bit Windows platforms
+            // but works on 64-bit Windows platforms and others.  Regardless,
+            // hash collisions should have no effect on the correctness of an
+            // unordered pair associative container. -- Cromwell D. Enage
+/*
             BOOST_CHECK( const_c.bucket_size(const_c.bucket(di->first)) == 1 );
+*/
 
             typename Container::size_type nb =
                 const_c.bucket(const_c.find(di->first)->first);
