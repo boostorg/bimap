@@ -70,7 +70,7 @@ void test_basic()
 
     using namespace boost::bimaps::relation;
 
-    // Instanciate two pairs and test the storage alignmentDataData
+    // Instantiate two pairs and test the storage alignmentDataData
 
     typedef structured_pair< short, double, normal_layout > pair_type;
     typedef structured_pair< double, short, mirror_layout > mirror_type;
@@ -80,7 +80,8 @@ void test_basic()
 
     BOOST_CHECK( pa.first  == pb.second );
     BOOST_CHECK( pa.second == pb.first  );
-
+    BOOST_CHECK( pair_type()   < pa     );
+    BOOST_CHECK( mirror_type() < pb     );
 }
 
 
