@@ -61,3 +61,4 @@ test_script:
   - config_info_travis
   - cd ..\..\bimap\test
   - ..\..\..\b2 -j3 --hash %ARGS%
+
