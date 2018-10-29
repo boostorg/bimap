@@ -404,9 +404,13 @@ class bimap_core
     <
         relation,
         core_indices,
+#ifdef BOOST_NO_CXX11_ALLOCATOR
         BOOST_DEDUCED_TYPENAME parameters::allocator::
             BOOST_NESTED_TEMPLATE rebind<relation>::other
-
+#else
+		BOOST_DEDUCED_TYPENAME std::allocator_traits< BOOST_DEDUCED_TYPENAME parameters::allocator >::
+			BOOST_NESTED_TEMPLATE rebind_alloc<relation>
+#endif
     > core_type;
 
     // Core metadata
