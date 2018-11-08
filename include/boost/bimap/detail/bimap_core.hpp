@@ -18,6 +18,7 @@
 
 #include <boost/config.hpp>
 
+#include <memory>
 #include <boost/mpl/placeholders.hpp>
 #include <boost/mpl/push_front.hpp>
 #include <boost/mpl/if.hpp>
