@@ -18,7 +18,9 @@
 
 #include <boost/config.hpp>
 
+#ifndef BOOST_NO_CXX11_ALLOCATOR
 #include <memory>
+#endif
 #include <boost/mpl/placeholders.hpp>
 #include <boost/mpl/push_front.hpp>
 #include <boost/mpl/if.hpp>
