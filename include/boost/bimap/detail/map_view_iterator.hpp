@@ -166,6 +166,13 @@ struct const_map_view_iterator :
 	const_map_view_iterator(map_view_iterator<Tag,BimapCore> i)
       : base_(i.base()) {}
 
+    const_map_view_iterator& operator=(const_map_view_iterator const & iter)
+    {
+        static_cast<base_&>(*this) = static_cast<const base_&>(iter);
+
+        return *this;
+    }
+
     BOOST_DEDUCED_TYPENAME base_::reference dereference() const
     {
         return ::boost::bimaps::relation::support::pair_by<Tag>(*this->base());
