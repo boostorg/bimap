@@ -29,6 +29,7 @@
 #include <boost/type_traits/is_same.hpp>
 
 #include <boost/concept_check.hpp>
+#include <boost/container/allocator_traits.hpp>
 
 // Boost.MultiIndex
 #include <boost/multi_index_container.hpp>
@@ -404,9 +405,11 @@ class bimap_core
     <
         relation,
         core_indices,
-        BOOST_DEDUCED_TYPENAME parameters::allocator::
-            BOOST_NESTED_TEMPLATE rebind<relation>::other
-
+        BOOST_DEDUCED_TYPENAME ::boost::container::allocator_traits
+        <
+            BOOST_DEDUCED_TYPENAME parameters::allocator
+        >::
+            BOOST_NESTED_TEMPLATE portable_rebind_alloc<relation>::type
     > core_type;
 
     // Core metadata
