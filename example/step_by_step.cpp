@@ -23,7 +23,7 @@
 #include <iostream>
 #include <cassert>
 
-// A convinience header is avaiable in the boost directory:
+// A convenience header is available in the boost directory:
 #include <boost/bimap.hpp>
 
 int main()

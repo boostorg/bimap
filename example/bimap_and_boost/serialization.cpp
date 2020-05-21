@@ -52,7 +52,7 @@ int main()
             rationale behind this decision >*/
 
         /*<< We can only serialize iterators if the bimap was serialized first.
-             Note that the const cast is not requiered here because we create
+             Note that the const cast is not required here because we create
              our iterators as const. >>*/
         const bm_type::left_iterator left_iter = bm.left.find("two");
         oa << left_iter;
