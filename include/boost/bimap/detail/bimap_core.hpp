@@ -47,6 +47,7 @@
 
 #include <boost/bimap/set_of.hpp>
 #include <boost/bimap/unconstrained_set_of.hpp>
+#include <boost/core/allocator_access.hpp>
 
 namespace boost {
 namespace bimaps {
@@ -404,8 +405,8 @@ class bimap_core
     <
         relation,
         core_indices,
-        BOOST_DEDUCED_TYPENAME parameters::allocator::
-            BOOST_NESTED_TEMPLATE rebind<relation>::other
+        BOOST_DEDUCED_TYPENAME boost::allocator_rebind<BOOST_DEDUCED_TYPENAME
+            parameters::allocator, relation>::type
 
     > core_type;
 
