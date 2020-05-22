@@ -20,8 +20,7 @@
 // std
 #include <string>
 
-// Boost.Test
-#include <boost/test/minimal.hpp>
+#include <boost/core/lightweight_test.hpp>
 
 // Boost.MPL
 #include <boost/mpl/assert.hpp>
@@ -224,7 +223,7 @@ void test_mutant_relation()
     test_relation<mutant_relation_builder, cc4, cc5>(0,0);
 }
 
-int test_main( int, char* [] )
+int main()
 {
 
     // Test metadata correctness with untagged relation version
@@ -236,6 +235,6 @@ int test_main( int, char* [] )
     // Test basic
     test_mutant_relation();
 
-    return 0;
+    return boost::report_errors();
 }
 

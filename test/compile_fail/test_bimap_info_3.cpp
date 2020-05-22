@@ -17,9 +17,6 @@
 
 #include <boost/config.hpp>
 
-// Boost.Test
-#include <boost/test/minimal.hpp>
-
 // Boost.Bimap
 #include <boost/bimap/bimap.hpp>
 #include <boost/bimap/list_of.hpp>
@@ -38,11 +35,3 @@ void test_bimap_info_3()
         bm.left.info_at(1);
     }
 }
-
-
-int test_main( int, char* [] )
-{
-    test_bimap_info_3();
-    return 0;
-}
-

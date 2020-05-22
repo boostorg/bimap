@@ -19,8 +19,7 @@
 
 #define BOOST_BIMAP_DISABLE_SERIALIZATION
 
-// Boost.Test
-#include <boost/test/minimal.hpp>
+#include <boost/core/lightweight_test.hpp>
 
 // std
 #include <set>
@@ -159,9 +158,9 @@ void test_bimap()
 }
 
 
-int test_main( int, char* [] )
+int main()
 {
     test_bimap();
-    return 0;
+    return boost::report_errors();
 }
 

@@ -17,15 +17,16 @@
 
 #include <boost/config.hpp>
 
-// Boost.Test
-#include <boost/test/minimal.hpp>
+#include <boost/core/ignore_unused.hpp>
 
 #include <boost/bimap/multiset_of.hpp>
 
-int test_main( int, char* [] )
+int main()
 {
     typedef boost::bimaps::multiset_of<int>       set_type;
     typedef boost::bimaps::multiset_of_relation<> set_type_of_relation;
+    boost::ignore_unused<set_type>();
+    boost::ignore_unused<set_type_of_relation>();
 
     return 0;
 }

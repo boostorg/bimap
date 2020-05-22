@@ -17,9 +17,6 @@
 
 #include <boost/config.hpp>
 
-// Boost.Test
-#include <boost/test/minimal.hpp>
-
 #include <boost/static_assert.hpp>
 #include <boost/type_traits/is_same.hpp>
 
@@ -90,7 +87,7 @@ void test_bimap_extra()
 }
 
 
-int test_main( int, char* [] )
+int main()
 {
     test_bimap_extra();
     return 0;

@@ -17,9 +17,6 @@
 
 #include <boost/config.hpp>
 
-// Boost.Test
-#include <boost/test/minimal.hpp>
-
 // std
 #include <sstream>
 #include <algorithm>
@@ -81,7 +78,7 @@ void test_bimap_assign()
 }
 
 
-int test_main( int, char* [] )
+int main()
 {
     test_bimap_assign();
     return 0;

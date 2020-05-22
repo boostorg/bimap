@@ -17,8 +17,7 @@
 
 #include <boost/config.hpp>
 
-// Boost.Test
-#include <boost/test/minimal.hpp>
+#include <boost/core/lightweight_test.hpp>
 
 // Boost.MPL
 #include <boost/mpl/list.hpp>
@@ -77,27 +76,27 @@ void test_mutant_basic()
     {
         MutantData m(value_a,value_b);
 
-        BOOST_CHECK( sizeof( MutantData ) == sizeof( StdPairView ) );
+        BOOST_TEST( sizeof( MutantData ) == sizeof( StdPairView ) );
 
-        BOOST_CHECK( mutate<StdPairView>(m).first  == value_a );
-        BOOST_CHECK( mutate<StdPairView>(m).second == value_b );
-        BOOST_CHECK( mutate<ReverseStdPairView>(m).first  == value_b );
-        BOOST_CHECK( mutate<ReverseStdPairView>(m).second == value_a );
+        BOOST_TEST( mutate<StdPairView>(m).first  == value_a );
+        BOOST_TEST( mutate<StdPairView>(m).second == value_b );
+        BOOST_TEST( mutate<ReverseStdPairView>(m).first  == value_b );
+        BOOST_TEST( mutate<ReverseStdPairView>(m).second == value_a );
 
         ReverseStdPairView & rpair = mutate<ReverseStdPairView>(m);
         rpair.first = value_b;
         rpair.second = value_a;
 
-        BOOST_CHECK( mutate<StdPairView>(m).first  == value_a );
-        BOOST_CHECK( mutate<StdPairView>(m).second == value_b );
+        BOOST_TEST( mutate<StdPairView>(m).first  == value_a );
+        BOOST_TEST( mutate<StdPairView>(m).second == value_b );
 
-        BOOST_CHECK( &mutate<StdPairView>(m).first  == &m.a );
-        BOOST_CHECK( &mutate<StdPairView>(m).second == &m.b );
+        BOOST_TEST( &mutate<StdPairView>(m).first  == &m.a );
+        BOOST_TEST( &mutate<StdPairView>(m).second == &m.b );
     }
 }
 
-int test_main( int, char* [] )
+int main()
 {
     test_mutant_basic();
-    return 0;
+    return boost::report_errors();
 }

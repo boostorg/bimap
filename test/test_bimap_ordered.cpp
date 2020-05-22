@@ -19,8 +19,7 @@
 
 #define BOOST_BIMAP_DISABLE_SERIALIZATION
 
-// Boost.Test
-#include <boost/test/minimal.hpp>
+#include <boost/core/lightweight_test.hpp>
 
 // std
 #include <set>
@@ -131,46 +130,46 @@ void test_bimap()
 
         bimap_type b2( b1 );
 
-        BOOST_CHECK(     b1 == b2   );
-        BOOST_CHECK( ! ( b1 != b2 ) );
-        BOOST_CHECK(     b1 <= b2   );
-        BOOST_CHECK(     b1 >= b2   );
-        BOOST_CHECK( ! ( b1 <  b2 ) );
-        BOOST_CHECK( ! ( b1 >  b2 ) );
+        BOOST_TEST(     b1 == b2   );
+        BOOST_TEST( ! ( b1 != b2 ) );
+        BOOST_TEST(     b1 <= b2   );
+        BOOST_TEST(     b1 >= b2   );
+        BOOST_TEST( ! ( b1 <  b2 ) );
+        BOOST_TEST( ! ( b1 >  b2 ) );
 
         b1.insert( bimap_type::value_type(2,"two") );
 
         b2 = b1;
-        BOOST_CHECK( b2 == b1 );
+        BOOST_TEST( b2 == b1 );
 
         b1.insert( bimap_type::value_type(3,"three") );
 
         b2.left = b1.left;
-        BOOST_CHECK( b2 == b1 );
+        BOOST_TEST( b2 == b1 );
 
         b1.insert( bimap_type::value_type(4,"four") );
 
         b2.right = b1.right;
-        BOOST_CHECK( b2 == b1 );
+        BOOST_TEST( b2 == b1 );
 
         b1.clear();
         b2.swap(b1);
-        BOOST_CHECK( b2.empty() && !b1.empty() );
+        BOOST_TEST( b2.empty() && !b1.empty() );
 
         b1.left.swap( b2.left );
-        BOOST_CHECK( b1.empty() && !b2.empty() );
+        BOOST_TEST( b1.empty() && !b2.empty() );
 
         b1.right.swap( b2.right );
-        BOOST_CHECK( b2.empty() && !b1.empty() );
+        BOOST_TEST( b2.empty() && !b1.empty() );
     }
     //--------------------------------------------------------------------
 
 }
 
 
-int test_main( int, char* [] )
+int main()
 {
     test_bimap();
-    return 0;
+    return boost::report_errors();
 }
 
