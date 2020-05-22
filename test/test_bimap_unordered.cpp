@@ -79,6 +79,15 @@ void test_bimap()
         test_unordered_set_unordered_multiset_bimap(
             bm,data,left_data,right_data
         );
+
+        BOOST_CHECK((
+            bm.left.hash_function()(' ') == bm.left.hash_function()(' ')
+        ));
+        BOOST_CHECK((
+            bm.right.hash_function()(" ") == bm.right.hash_function()(" ")
+        ));
+        BOOST_CHECK((bm.left.key_eq()(' ', ' ')));
+        BOOST_CHECK((bm.right.key_eq()(" ", " ")));
     }
     //--------------------------------------------------------------------
 
@@ -103,6 +112,15 @@ void test_bimap()
             bm,data,left_data,right_data
         );
         test_tagged_bimap<left_tag,right_tag>(bm,data);
+
+        BOOST_CHECK((
+            bm.left.hash_function()(' ') == bm.left.hash_function()(' ')
+        ));
+        BOOST_CHECK((
+            bm.right.hash_function()(" ") == bm.right.hash_function()(" ")
+        ));
+        BOOST_CHECK((bm.left.key_eq()(' ', ' ')));
+        BOOST_CHECK((bm.right.key_eq()(" ", " ")));
     }
     //--------------------------------------------------------------------
 
@@ -128,6 +146,11 @@ void test_bimap()
         test_basic_bimap(bm,data,left_data,right_data);
         test_associative_container(bm,data);
         test_simple_unordered_associative_container(bm,data);
+
+        BOOST_CHECK((
+            bm.right.hash_function()(" ") == bm.right.hash_function()(" ")
+        ));
+        BOOST_CHECK((bm.right.key_eq()(" ", " ")));
     }
     //--------------------------------------------------------------------
 
@@ -154,6 +177,14 @@ void test_bimap()
         test_associative_container(bm,data);
         test_simple_unordered_associative_container(bm,data);
 
+        BOOST_CHECK((
+            bm.left.hash_function()(' ') == bm.left.hash_function()(' ')
+        ));
+        BOOST_CHECK((
+            bm.right.hash_function()(" ") == bm.right.hash_function()(" ")
+        ));
+        BOOST_CHECK((bm.left.key_eq()(' ', ' ')));
+        BOOST_CHECK((bm.right.key_eq()(" ", " ")));
     }
     //--------------------------------------------------------------------
 }

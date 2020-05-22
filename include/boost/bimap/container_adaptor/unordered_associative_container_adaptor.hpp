@@ -184,6 +184,16 @@ class unordered_associative_container_adaptor :
 
     // bucket interface:
 
+    hasher hash_function() const
+    {
+        return this->base().hash_function();
+    }
+
+    key_equal key_eq() const
+    {
+        return this->base().key_eq();
+    }
+
     BOOST_DEDUCED_TYPENAME base_::size_type bucket_count() const
     {
         return this->base().bucket_count();
@@ -258,6 +268,11 @@ class unordered_associative_container_adaptor :
     void rehash(BOOST_DEDUCED_TYPENAME base_::size_type n)
     {
         return this->base().rehash(n);
+    }
+
+    void reserve(BOOST_DEDUCED_TYPENAME base_::size_type count)
+    {
+        return this->base().reserve(count);
     }
 
     // We have redefined end and begin so we have to manually route the old ones
