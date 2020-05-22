@@ -67,7 +67,7 @@ class normal_storage :
     first_type   first;
     second_type  second;
 
-    normal_storage() {}
+    normal_storage() : first(), second() {}
 
     normal_storage(BOOST_DEDUCED_TYPENAME ::boost::call_traits<
                         first_type >::param_type f,
@@ -104,7 +104,7 @@ class mirror_storage :
     second_type  second;
     first_type   first;
 
-    mirror_storage() {}
+    mirror_storage() : second(), first() {}
 
     mirror_storage(BOOST_DEDUCED_TYPENAME ::boost::call_traits<first_type  >::param_type f,
                    BOOST_DEDUCED_TYPENAME ::boost::call_traits<second_type >::param_type s)
@@ -118,7 +118,7 @@ class mirror_storage :
 };
 
 /** \struct boost::bimaps::relation::storage_finder
-\brief Obtain the a storage with the correct layout.
+\brief Obtain the storage with the correct layout.
 
 \code
 template< class FirstType, class SecondType, class Layout >
@@ -174,7 +174,7 @@ class pair_info_hook :
 
     protected:
 
-    pair_info_hook() {}
+    pair_info_hook() : base_(), info() {}
 
     pair_info_hook( BOOST_DEDUCED_TYPENAME ::boost::call_traits<
                         BOOST_DEDUCED_TYPENAME base_::first_type
@@ -218,7 +218,7 @@ class pair_info_hook<TA,TB,::boost::mpl::na,Layout> :
 
     protected:
 
-    pair_info_hook() {}
+    pair_info_hook() : base_() {}
 
     pair_info_hook( BOOST_DEDUCED_TYPENAME ::boost::call_traits<
                         BOOST_DEDUCED_TYPENAME base_::first_type
@@ -291,7 +291,7 @@ class structured_pair :
 
     > mutant_views;
 
-    structured_pair() {}
+    structured_pair() : base_(){}
 
     structured_pair(BOOST_DEDUCED_TYPENAME boost::call_traits<
                         BOOST_DEDUCED_TYPENAME base_::first_type  >::param_type f,
