@@ -148,7 +148,7 @@ install:
   - cd boost-root
   - git submodule update --init tools/boostdep
   - cp -r $TRAVIS_BUILD_DIR/* libs/bimap
-  - python tools/boostdep/depinst/depinst.py bimap
+  - python tools/boostdep/depinst/depinst.py -I example bimap
   - ./bootstrap.sh
   - ./b2 headers
 
