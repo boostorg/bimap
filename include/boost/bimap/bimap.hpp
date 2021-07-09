@@ -265,6 +265,29 @@ class bimap
 
    {}
 
+   #ifndef BOOST_NO_CXX11_HDR_INITIALIZER_LIST
+   bimap(std::initializer_list<BOOST_DEDUCED_TYPENAME base_::core_type::value_type> init,
+         const allocator_type& al = allocator_type()) :
+
+       base_::relation_set(
+           ::boost::multi_index::get<
+               BOOST_DEDUCED_TYPENAME base_::logic_relation_set_tag>(core)
+       ),
+
+       core(init,ctor_args_list(),al),
+
+       left (
+           ::boost::multi_index::get<
+               BOOST_DEDUCED_TYPENAME base_::logic_left_tag>(core)
+       ),
+       right (
+           ::boost::multi_index::get<
+               BOOST_DEDUCED_TYPENAME base_::logic_right_tag>(core)
+       )
+
+   {}
+   #endif
+
    bimap(const bimap& x) :
 
        base_::relation_set(
