@@ -424,6 +424,7 @@ void test_pair_unordered_associative_container(Container & c, const Data & d)
             // "b": hash = fb6a785761bd4e37, hash mod 53 = 16
             // "d": hash = adb5bf47769d562b, hash mod 53 = 27
 
+            BOOST_TEST_GE( const_c.bucket_size(const_c.bucket(di->first)), 1 );
             BOOST_TEST_LE( const_c.bucket_size(const_c.bucket(di->first)), 2 );
 
             typename Container::size_type nb =
