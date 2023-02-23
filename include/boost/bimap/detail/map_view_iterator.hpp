@@ -21,8 +21,7 @@
 // Boost
 
 #ifndef BOOST_BIMAP_DISABLE_SERIALIZATION
-  #include <boost/serialization/nvp.hpp>
-  #include <boost/serialization/split_member.hpp>
+  #include <boost/core/serialization.hpp>
 #endif // BOOST_BIMAP_DISABLE_SERIALIZATION
 
 #include <boost/iterator/detail/enable_if.hpp>
@@ -57,7 +56,12 @@ template< class Tag, class BimapCore > struct const_local_map_view_iterator ;
 #ifndef BOOST_BIMAP_DISABLE_SERIALIZATION
 /*===========================================================================*/
 #define BOOST_BIMAP_MAP_VIEW_ITERATOR_SERIALIZATION_SUPPORT                   \
-    BOOST_SERIALIZATION_SPLIT_MEMBER()                                        \
+                                                                              \
+    template< class Archive >                                                 \
+    void serialize(Archive & ar, const unsigned int v)                        \
+    {                                                                         \
+        ::boost::core::split_member( ar, *this, v );                          \
+    }                                                                         \
                                                                               \
     friend class ::boost::serialization::access;                              \
                                                                               \
