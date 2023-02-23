@@ -138,7 +138,7 @@ struct map_view_iterator :
         );
     }
     private:
-    friend class iterator_core_access;
+    friend class boost::iterators::iterator_core_access;
     BOOST_BIMAP_MAP_VIEW_ITERATOR_SERIALIZATION_SUPPORT
 };
 
@@ -172,7 +172,7 @@ struct const_map_view_iterator :
         return ::boost::bimaps::relation::support::pair_by<Tag>(*this->base());
     }
     private:
-    friend class iterator_core_access;
+    friend class boost::iterators::iterator_core_access;
     BOOST_BIMAP_MAP_VIEW_ITERATOR_SERIALIZATION_SUPPORT
 };
 
@@ -211,7 +211,7 @@ struct reverse_map_view_iterator :
         );
     }
     private:
-    friend class iterator_core_access;
+    friend class boost::iterators::iterator_core_access;
     BOOST_BIMAP_MAP_VIEW_ITERATOR_SERIALIZATION_SUPPORT
 };
 
@@ -246,7 +246,7 @@ struct const_reverse_map_view_iterator :
         return ::boost::bimaps::relation::support::pair_by<Tag>(*this->base());
     }
     private:
-    friend class iterator_core_access;
+    friend class boost::iterators::iterator_core_access;
     BOOST_BIMAP_MAP_VIEW_ITERATOR_SERIALIZATION_SUPPORT
 };
 
@@ -285,7 +285,7 @@ struct local_map_view_iterator :
         );
     }
     private:
-    friend class iterator_core_access;
+    friend class boost::iterators::iterator_core_access;
     BOOST_BIMAP_MAP_VIEW_ITERATOR_SERIALIZATION_SUPPORT
 };
 
@@ -319,7 +319,7 @@ struct const_local_map_view_iterator :
         return ::boost::bimaps::relation::support::pair_by<Tag>(*this->base());
     }
     private:
-    friend class iterator_core_access;
+    friend class boost::iterators::iterator_core_access;
     BOOST_BIMAP_MAP_VIEW_ITERATOR_SERIALIZATION_SUPPORT
 };
 
