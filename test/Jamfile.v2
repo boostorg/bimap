@@ -11,7 +11,7 @@ import testing ;
 
 project : requirements
     <include>.
-    <library>/boost/bimap/boost_bimap
+    <library>/boost/bimap//boost_bimap
     ;
 
 test-suite "tagged_test"

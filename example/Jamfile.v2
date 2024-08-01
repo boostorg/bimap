@@ -9,7 +9,7 @@
 # bring in rules for testing
 import testing ;
 
-project : requirements <library>/boost/bimap/boost_bimap ;
+project : requirements <library>/boost/bimap//boost_bimap ;
 
 test-suite "examples"
     :
