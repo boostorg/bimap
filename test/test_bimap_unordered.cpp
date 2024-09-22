@@ -35,8 +35,8 @@
 // bimap container
 #include <boost/bimap/bimap.hpp>
 
-#include <strong_type.hpp>
-#include <test_bimap.hpp>
+#include "strong_type.hpp"
+#include "test_bimap.hpp"
 
 struct  left_tag {};
 struct right_tag {};

@@ -29,7 +29,7 @@
 #include <boost/bimap/vector_of.hpp>
 #include <boost/bimap/unconstrained_set_of.hpp>
 
-#include <strong_type.hpp>
+#include "strong_type.hpp"
 
 void test_bimap_operator_bracket()
 {

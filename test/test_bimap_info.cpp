@@ -27,7 +27,7 @@
 #include <boost/bimap/bimap.hpp>
 #include <boost/bimap/unordered_set_of.hpp>
 
-#include <strong_type.hpp>
+#include "strong_type.hpp"
 
 int test_bimap_info()
 {
