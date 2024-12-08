@@ -103,7 +103,8 @@ jobs:
         run: |
           cd ../boost-root
           export ADDRMD=${{matrix.address-model}}
-          ./b2 -j3 libs/$LIBRARY/test toolset=${{matrix.toolset}} cxxstd=${{matrix.cxxstd}} ${ADDRMD:+address-model=$ADDRMD} variant=debug,release
+          toolset="${{matrix.toolset}}"
+          ./b2 -j3 libs/$LIBRARY/test toolset="${toolset/clang++/clang}" cxxstd=${{matrix.cxxstd}} ${ADDRMD:+address-model=$ADDRMD} variant=debug,release
 
   windows:
     strategy:
