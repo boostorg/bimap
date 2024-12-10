@@ -42,7 +42,7 @@ jobs:
           - { toolset: clang++-14,  cxxstd: "11,14,17,20,2b", os: ubuntu-22.04, install: clang-14 }
           - { toolset: clang++-15,  cxxstd: "11,14,17,20,2b", os: ubuntu-22.04, install: clang-15 }
           - { toolset: clang++-16,  cxxstd: "11,14,17,20,2b", os: ubuntu-24.04, install: clang-16 }
-          - { toolset: clang++-17,  cxxstd: "11,14,17,20,2b", os: ubuntu-24.04, install: clang-17 }
+          - { toolset: clang++-17,  cxxstd: "11,14,17,20",    os: ubuntu-24.04, install: clang-17 }
           - { toolset: clang++-18,  cxxstd: "11,14,17,20,2b", os: ubuntu-24.04, install: clang-18 }
           - { toolset: clang,       cxxstd: "11,14,17,20,2b", os: macos-13 }
           - { toolset: clang,       cxxstd: "11,14,17,20,2b", os: macos-14 }
