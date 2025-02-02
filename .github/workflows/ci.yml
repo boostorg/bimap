@@ -99,6 +99,11 @@ jobs:
           ./bootstrap.sh
           ./b2 -d0 headers
 
+      - name: Create user-config.jam
+        if: matrix.compiler
+        run: |
+          echo "using ${{matrix.toolset}} : : ${{matrix.compiler}} ;" > ~/user-config.jam
+
       - name: Run tests
         run: |
           cd ../boost-root
