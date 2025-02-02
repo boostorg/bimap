@@ -28,22 +28,22 @@ jobs:
           - { toolset: gcc-12,      cxxstd: "11,14,17,20,2b", os: ubuntu-22.04, install: g++-12-multilib, address-model: 32,64 }
           - { toolset: gcc-13,      cxxstd: "11,14,17,20,2b", os: ubuntu-24.04, install: g++-13-multilib, address-model: 32,64 }
           - { toolset: gcc-14,      cxxstd: "11,14,17,20,2b", os: ubuntu-24.04, install: g++-14-multilib, address-model: 32,64 }
-          - { toolset: clang++-3.9, cxxstd: "11,14",          os: ubuntu-latest, container: 'ubuntu:18.04', install: clang-3.9 }
-          - { toolset: clang++-4.0, cxxstd: "11,14",          os: ubuntu-latest, container: 'ubuntu:18.04', install: clang-4.0 }
-          - { toolset: clang++-5.0, cxxstd: "11,14,1z",       os: ubuntu-latest, container: 'ubuntu:18.04', install: clang-5.0 }
-          - { toolset: clang++-6.0, cxxstd: "11,14,17",       os: ubuntu-20.04, install: clang-6.0 }
-          - { toolset: clang++-7,   cxxstd: "11,14,17",       os: ubuntu-20.04, install: clang-7 }
-          - { toolset: clang++-8,   cxxstd: "11,14,17",       os: ubuntu-20.04, install: clang-8 }
-          - { toolset: clang++-9,   cxxstd: "11,14,17,2a",    os: ubuntu-20.04, install: clang-9 }
-          - { toolset: clang++-10,  cxxstd: "11,14,17,2a",    os: ubuntu-20.04 }
-          - { toolset: clang++-11,  cxxstd: "11,14,17,2a",    os: ubuntu-20.04 }
-          - { toolset: clang++-12,  cxxstd: "11,14,17,20",    os: ubuntu-20.04 }
-          - { toolset: clang++-13,  cxxstd: "11,14,17,20,2b", os: ubuntu-22.04, install: clang-13 }
-          - { toolset: clang++-14,  cxxstd: "11,14,17,20,2b", os: ubuntu-22.04, install: clang-14 }
-          - { toolset: clang++-15,  cxxstd: "11,14,17,20,2b", os: ubuntu-22.04, install: clang-15 }
-          - { toolset: clang++-16,  cxxstd: "11,14,17,20,2b", os: ubuntu-24.04, install: clang-16 }
-          - { toolset: clang++-17,  cxxstd: "11,14,17,20",    os: ubuntu-24.04, install: clang-17 }
-          - { toolset: clang++-18,  cxxstd: "11,14,17,20,2b", os: ubuntu-24.04, install: clang-18 }
+          - { toolset: clang-3.9,   cxxstd: "11,14",          os: ubuntu-latest, container: 'ubuntu:18.04', install: clang-3.9 }
+          - { toolset: clang-4.0,   cxxstd: "11,14",          os: ubuntu-latest, container: 'ubuntu:18.04', install: clang-4.0 }
+          - { toolset: clang-5.0,   cxxstd: "11,14,1z",       os: ubuntu-latest, container: 'ubuntu:18.04', install: clang-5.0 }
+          - { toolset: clang-6.0,   cxxstd: "11,14,17",       os: ubuntu-20.04, install: clang-6.0 }
+          - { toolset: clang-7,     cxxstd: "11,14,17",       os: ubuntu-20.04, install: clang-7 }
+          - { toolset: clang-8,     cxxstd: "11,14,17",       os: ubuntu-20.04, install: clang-8 }
+          - { toolset: clang-9,     cxxstd: "11,14,17,2a",    os: ubuntu-20.04, install: clang-9 }
+          - { toolset: clang-10,    cxxstd: "11,14,17,2a",    os: ubuntu-20.04 }
+          - { toolset: clang-11,    cxxstd: "11,14,17,2a",    os: ubuntu-20.04 }
+          - { toolset: clang-12,    cxxstd: "11,14,17,20",    os: ubuntu-20.04 }
+          - { toolset: clang-13,    cxxstd: "11,14,17,20,2b", os: ubuntu-22.04, install: clang-13 }
+          - { toolset: clang-14,    cxxstd: "11,14,17,20,2b", os: ubuntu-22.04, install: clang-14 }
+          - { toolset: clang-15,    cxxstd: "11,14,17,20,2b", os: ubuntu-22.04, install: clang-15 }
+          - { toolset: clang-16,    cxxstd: "11,14,17,20,2b", os: ubuntu-24.04, install: clang-16 }
+          - { toolset: clang-17,    cxxstd: "11,14,17,20",    os: ubuntu-24.04, install: clang-17 }
+          - { toolset: clang-18,    cxxstd: "11,14,17,20,2b", os: ubuntu-24.04, install: clang-18 }
           - { toolset: clang,       cxxstd: "11,14,17,20,2b", os: macos-13 }
           - { toolset: clang,       cxxstd: "11,14,17,20,2b", os: macos-14 }
 
@@ -103,8 +103,7 @@ jobs:
         run: |
           cd ../boost-root
           export ADDRMD=${{matrix.address-model}}
-          toolset="${{matrix.toolset}}"
-          ./b2 -j3 libs/$LIBRARY/test toolset="${toolset/clang++/clang}" cxxstd=${{matrix.cxxstd}} ${ADDRMD:+address-model=$ADDRMD} variant=debug,release
+          ./b2 -j3 libs/$LIBRARY/test toolset=${{matrix.toolset}} cxxstd=${{matrix.cxxstd}} ${ADDRMD:+address-model=$ADDRMD} variant=debug,release
 
   windows:
     strategy:
