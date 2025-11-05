@@ -137,7 +137,8 @@ jobs:
           - toolset: clang
             compiler: clang++-12
             cxxstd: "11,14,17,20"
-            os: ubuntu-20.04
+            os: ubuntu-latest
+            container: ubuntu:20.04
           - toolset: clang
             compiler: clang++-13
             cxxstd: "11,14,17,20,2b"
