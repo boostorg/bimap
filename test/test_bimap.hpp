@@ -1,7 +1,7 @@
 // Boost.Bimap
 //
 // Copyright (c) 2006-2007 Matias Capeletto
-// Copyright (c) 2024 Joaquin M Lopez Munoz
+// Copyright (c) 2024-2026 Joaquin M Lopez Munoz
 //
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
@@ -20,9 +20,11 @@
 #include <cassert>
 #include <algorithm>
 #include <iterator>
+#include <vector>
 
 #include <boost/lambda/lambda.hpp>
 #include <boost/static_assert.hpp>
+#include <boost/type_traits/has_equal_to.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/utility.hpp>
 #include <boost/next_prior.hpp>
@@ -637,24 +639,66 @@ void test_unordered_set_unordered_multiset_bimap(Bimap & b,
     test_unique_container(b.right, rd);
 }
 
+template< class Bimap, class Data >
+std::vector<typename Bimap::value_type> make_value_type_vector(
+    const Data& d, std::size_t n)
+{
+    std::vector<typename Bimap::value_type> res;
+    auto first = d.begin(), last = d.end();
+    while(n--) {
+        res.push_back(std::next(first) == last? *first: *++first);
+    }
+    return res;
+}
+
+template< class Bimap >
+bool check_equal(const Bimap& b1, const Bimap& b2, boost::true_type)
+{
+    return b1 == b2;
+}
+
+template< class Bimap >
+bool check_equal(const Bimap& b1, const Bimap& b2, boost::false_type)
+{
+    if(b1.size() != b2.size()) return false;
+    for(const auto& x: b1) {
+        if(std::find(b2.begin(), b2.end(), x) == b2.end()) return false;
+    }
+    for(const auto& x: b2) {
+        if(std::find(b1.begin(), b1.end(), x) == b1.end()) return false;
+    }
+    return true;
+}
+
+template< class Bimap >
+bool check_equal(const Bimap& b1, const Bimap& b2)
+{
+    return check_equal(b1, b2, boost::has_equal_to<Bimap>{});
+}
+
 template< class Bimap, class Data>
 void test_bimap_init_copy_swap(const Data&d)
 {    
     Bimap b1(d.begin(),d.end());
     Bimap b2( b1 );
-    BOOST_TEST( b1 == b2 );
-    
+    BOOST_TEST( check_equal(b1, b2) );
+
+    auto v = make_value_type_vector<Bimap>(d, 5);
+    Bimap b3({v[0], v[1], v[2], v[3], v[4]});
+    Bimap b4(v.begin(), v.end());
+    BOOST_TEST( check_equal(b3, b4) );
+
     b2.clear();
     b2 = b1;
-    BOOST_TEST( b2 == b1 );
+    BOOST_TEST( check_equal(b2, b1) );
 
     b2.clear();
     b2.left = b1.left;
-    BOOST_TEST( b2 == b1 );
+    BOOST_TEST( check_equal(b2, b1) );
 
     b2.clear();
     b2.right = b1.right;
-    BOOST_TEST( b2 == b1 );
+    BOOST_TEST( check_equal(b2, b1) );
 
     b1.clear();
     b2.swap(b1);

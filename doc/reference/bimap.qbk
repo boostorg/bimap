@@ -171,6 +171,8 @@ this tags.
         template< class InputIterator >
         bimap(InputIterator first,InputIterator last);
 
+        bimap(std::initializer_list<relation> init);
+
         bimap(const bimap &);
 
         bimap& operator=(const bimap& b);
@@ -344,6 +346,10 @@ acceptance by the collection types of the `bimap`.
 * [link complexity_signature_explanation
 [*Complexity:]] O(m*H(m)), where m is the number of elements in `[first,last)`.
 
+    bimap(std::initializer_list<relation> init);
+
+* [*Effects:] Equivalent to `bimap(init.begin(), init.end())`.
+* [*Complexity:] O(init.size()*H(init.size())).
 
     bimap(const bimap & x);
 

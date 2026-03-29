@@ -1,7 +1,7 @@
 // Boost.Bimap
 //
 // Copyright (c) 2006-2007 Matias Capeletto
-// Copyright (c) 2024 Joaquin M Lopez Munoz
+// Copyright (c) 2024-2026 Joaquin M Lopez Munoz
 //
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
@@ -74,6 +74,8 @@ void test_bimap()
         data.insert( bm_type::value_type(4,0.4) );
 
         bm_type bm;
+
+        test_bimap_init_copy_swap<bm_type>(data) ;
         test_set_set_bimap(bm,data,left_data,right_data);
     }
     //--------------------------------------------------------------------
