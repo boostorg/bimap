@@ -1,6 +1,7 @@
 // Boost.Bimap
 //
 // Copyright (c) 2006-2007 Matias Capeletto
+// Copyright (c) 2026 Joaquin M Lopez Munoz
 //
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
@@ -116,7 +117,7 @@ class vector_map_view
 
     // Lists operations
 
-    void splice(BOOST_DEDUCED_TYPENAME base_::iterator position, vector_map_view & x)
+    void splice(BOOST_DEDUCED_TYPENAME base_::const_iterator position, vector_map_view & x)
     {
         this->base().splice(
             this->template functor<
@@ -125,9 +126,9 @@ class vector_map_view
         );
     }
 
-    void splice(BOOST_DEDUCED_TYPENAME base_::iterator position,
+    void splice(BOOST_DEDUCED_TYPENAME base_::const_iterator position,
                 vector_map_view & x,
-                BOOST_DEDUCED_TYPENAME base_::iterator i)
+                BOOST_DEDUCED_TYPENAME base_::const_iterator i)
     {
         this->base().splice(
             this->template functor<
@@ -138,10 +139,10 @@ class vector_map_view
         );
     }
 
-    void splice(BOOST_DEDUCED_TYPENAME base_::iterator position,
+    void splice(BOOST_DEDUCED_TYPENAME base_::const_iterator position,
                 vector_map_view & x,
-                BOOST_DEDUCED_TYPENAME base_::iterator first,
-                BOOST_DEDUCED_TYPENAME base_::iterator last)
+                BOOST_DEDUCED_TYPENAME base_::const_iterator first,
+                BOOST_DEDUCED_TYPENAME base_::const_iterator last)
     {
         this->base().splice(
             this->template functor<
@@ -268,8 +269,8 @@ class vector_map_view
 
     // Rearrange Operations
 
-    void relocate(BOOST_DEDUCED_TYPENAME base_::iterator position, 
-                  BOOST_DEDUCED_TYPENAME base_::iterator i)
+    void relocate(BOOST_DEDUCED_TYPENAME base_::const_iterator position, 
+                  BOOST_DEDUCED_TYPENAME base_::const_iterator i)
     {
         this->base().relocate(
             this->template functor<
@@ -279,9 +280,9 @@ class vector_map_view
         );
     }
 
-    void relocate(BOOST_DEDUCED_TYPENAME base_::iterator position,
-                  BOOST_DEDUCED_TYPENAME base_::iterator first, 
-                  BOOST_DEDUCED_TYPENAME base_::iterator last)
+    void relocate(BOOST_DEDUCED_TYPENAME base_::const_iterator position,
+                  BOOST_DEDUCED_TYPENAME base_::const_iterator first, 
+                  BOOST_DEDUCED_TYPENAME base_::const_iterator last)
     {
         this->base().relocate(
             this->template functor<

@@ -1,6 +1,7 @@
 // Boost.Bimap
 //
 // Copyright (c) 2006-2007 Matias Capeletto
+// Copyright (c) 2026 Joaquin M Lopez Munoz
 //
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
@@ -283,7 +284,7 @@ class sequence_container_adaptor :
     }
 
     std::pair<BOOST_DEDUCED_TYPENAME base_::iterator,bool>
-    insert(BOOST_DEDUCED_TYPENAME base_::iterator position,
+    insert(BOOST_DEDUCED_TYPENAME base_::const_iterator position,
            BOOST_DEDUCED_TYPENAME ::boost::call_traits< 
                 BOOST_DEDUCED_TYPENAME base_::value_type >::param_type x)
     {
@@ -303,7 +304,7 @@ class sequence_container_adaptor :
         );
     }
 
-    void insert(BOOST_DEDUCED_TYPENAME base_::iterator position,
+    void insert(BOOST_DEDUCED_TYPENAME base_::const_iterator position,
                 BOOST_DEDUCED_TYPENAME base_::size_type m,
                 BOOST_DEDUCED_TYPENAME ::boost::call_traits<
                     BOOST_DEDUCED_TYPENAME base_::value_type >::param_type x)
@@ -317,7 +318,7 @@ class sequence_container_adaptor :
     }
 
     template< class InputIterator >
-    void insert(BOOST_DEDUCED_TYPENAME base_::iterator position,
+    void insert(BOOST_DEDUCED_TYPENAME base_::const_iterator position,
                 InputIterator first, InputIterator last)
     {
         // This is the same problem found in the insert function 

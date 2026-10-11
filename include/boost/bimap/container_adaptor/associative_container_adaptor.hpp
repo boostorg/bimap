@@ -1,6 +1,7 @@
 // Boost.Bimap
 //
 // Copyright (c) 2006-2007 Matias Capeletto
+// Copyright (c) 2026 Joaquin M Lopez Munoz
 //
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
@@ -171,8 +172,14 @@ class associative_container_adaptor :
     }
 
     BOOST_DEDUCED_TYPENAME base_::iterator erase(
-        BOOST_DEDUCED_TYPENAME base_::iterator first,
-        BOOST_DEDUCED_TYPENAME base_::iterator last)
+        BOOST_DEDUCED_TYPENAME base_::const_iterator pos)
+    {
+        return base_::container_adaptor_::erase(pos);
+    }
+
+    BOOST_DEDUCED_TYPENAME base_::iterator erase(
+        BOOST_DEDUCED_TYPENAME base_::const_iterator first,
+        BOOST_DEDUCED_TYPENAME base_::const_iterator last)
     {
         return base_::container_adaptor_::erase(first,last);
     }

@@ -1,6 +1,7 @@
 // Boost.Bimap
 //
 // Copyright (c) 2006-2007 Matias Capeletto
+// Copyright (c) 2026 Joaquin M Lopez Munoz
 //
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
@@ -46,6 +47,8 @@ struct right_tag {};
 template< class Container, class Data >
 void test_list_operations(Container & b, Container& c, const Data & d)
 {
+    typedef typename Container::const_iterator const_iterator;
+
     c.clear() ;
     c.assign(d.begin(),d.end());
         
@@ -61,23 +64,28 @@ void test_list_operations(Container & b, Container& c, const Data & d)
     c.unique();
     BOOST_TEST( c.size() == d.size() );
  
-    c.relocate( c.begin(), ++c.begin() );
-    c.relocate( c.end(), c.begin(), ++c.begin() );
+    c.relocate( 
+        const_iterator(c.begin()), const_iterator(++c.begin()) );
+    c.relocate(
+        const_iterator(c.end()),
+        const_iterator(c.begin()), const_iterator(++c.begin()) );
         
     b.clear();
     c.clear();
     
     c.assign(d.begin(),d.end());
-    b.splice(b.begin(),c);
+    b.splice(const_iterator(b.begin()),c);
 
     BOOST_TEST( c.size() == 0 );
     BOOST_TEST( b.size() == d.size() );
 
-    c.splice(c.begin(),b,++b.begin());
+    c.splice(const_iterator(c.begin()),b,const_iterator(++b.begin()));
 
     BOOST_TEST( c.size() == 1 );
 
-    c.splice(c.begin(),b,b.begin(),b.end());
+    c.splice(
+      const_iterator(c.begin()),b,
+      const_iterator(b.begin()),const_iterator(b.end()));
 
     BOOST_TEST( b.size() == 0 );
 
