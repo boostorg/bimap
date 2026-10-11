@@ -16,13 +16,10 @@ http://www.boost.org/LICENSE_1_0.txt)
 
 [heading Boost 1.93 release]
 
+* Added `std::initializer_list` constructor ([@https://github.com/boostorg/bimap/pull/31 PR#31]).
 * Following standard library conventions since C++11, all modifier functions taking 
 `iterator` arguments now accept `const_iterator` arguments instead
 ([@https://github.com/boostorg/bimap/pull/56 PR#56]).
-
-[heading Boost 1.92 release]
-
-* Added `std::initializer_list` constructor ([@https://github.com/boostorg/bimap/pull/31 PR#31]).
 
 [heading Boost 1.91 release]
 
