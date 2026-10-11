@@ -14,6 +14,14 @@ env:
 
 jobs:
   posix:
+    container:
+      image: ${{matrix.container}}
+      volumes:
+        - /node20_217:/node20_217:rw,rshared
+        - /node24_217:/node24_217:rw,rshared
+        - ${{ startsWith(matrix.container, 'ubuntu:1') && '/node20_217:/__e/node20:ro,rshared' || ' ' }}
+        - ${{ startsWith(matrix.container, 'ubuntu:1') && '/node24_217:/__e/node24:ro,rshared' || ' ' }}
+
     strategy:
       fail-fast: false
       matrix:
