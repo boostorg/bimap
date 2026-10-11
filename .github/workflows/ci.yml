@@ -202,10 +202,8 @@ jobs:
             
     runs-on: ${{matrix.os}}
     container:
-      image: ${{matrix.container}}
-      volumes:
-        - /node20217:/node20217:rw,rshared
-        - ${{ startsWith(matrix.container, 'ubuntu:1') && '/node20217:/__e/node20:ro,rshared' || ' ' }}
+      image: ${{matrix.container || ''}}
+      volumes: ${{ fromJSON(startsWith(matrix.container, 'ubuntu:1') && '["/node20_217:/node20_217:rw,rshared","/node24_217:/node24_217:rw,rshared","/node20_217:/__e/node20:ro,rshared","/node24_217:/__e/node24:ro,rshared"]' || '[]') }}
 
     defaults:
       run:
@@ -218,15 +216,21 @@ jobs:
           apt-get update
           apt-get -y install sudo python3 git g++ curl xz-utils
           if [[ "${{matrix.container}}" == "ubuntu:1"* ]]; then
-            # Node 20 doesn't work with Ubuntu 16/18  glibc: https://github.com/actions/checkout/issues/1590
-            curl -sL https://archives.boost.io/misc/node/node-v20.9.0-linux-x64-glibc-217.tar.xz | tar -xJ --strip-components 1 -C /node20217
+            # Code copied from https://github.com/boostorg/boost-ci/blob/fa3c25ccccf996fb89de142ad2fd7b2b4ebf0ef8/.github/workflows/reusable.yml
+            echo "::group::Update node"
+            # Install a node version that works with the glibc 2.17 of Ubuntu 16/18: https://github.com/actions/checkout/issues/1590
+            curl -fsSL https://archives.boost.io/misc/node/node-v20.9.0-linux-x64-glibc-217.tar.xz | tar -xJ --strip-components 1 -C /node20_217
+            # Node 24 triggers a bug in GLIBC 2.17 inside libnss_files.so.2 (around _nss_files_gethostbyname3_r) leading to a SIGSEGV
+            # Observed in actions/cache
+            # Use Node 20 instead as long as that works
+            mkdir -p /node24_217
+            cp -r /node20_217/* /node24_217/
+            echo -n "Node 20: " && /node20_217/bin/node --version
+            echo -n "Node 24: " && /node24_217/bin/node --version
+            echo "::endgroup::"
           fi
 
-      - name: Enable Node 16
-        run: |
-          echo "ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true" >> $GITHUB_ENV
-
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Install packages
         if: matrix.install

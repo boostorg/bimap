@@ -32,7 +32,9 @@
 template< class Container, class Data >
 void test_container(Container & c, const Data & d)
 {
-    assert( d.size() > 2 );
+    typedef typename Container::const_iterator const_iterator;
+
+    assert( d.size() > 3 );
 
     c.clear();
 
@@ -49,10 +51,11 @@ void test_container(Container & c, const Data & d)
     BOOST_TEST( ! c.empty() );
 
     c.erase( c.begin() );
+    c.erase( const_iterator(c.begin()) );
 
-    BOOST_TEST( c.size() == d.size() - 1 );
+    BOOST_TEST( c.size() == d.size() - 2 );
 
-    c.erase( c.begin(), c.end() );
+    c.erase( const_iterator(c.begin()), const_iterator(c.end()) );
 
     BOOST_TEST( c.empty() );
 
@@ -60,7 +63,7 @@ void test_container(Container & c, const Data & d)
 
     BOOST_TEST( c.size() == 1 );
 
-    c.insert( c.begin(), *(++d.begin()) );
+    c.insert( const_iterator(c.begin()), *(++d.begin()) );
 
     BOOST_TEST( c.size() == 2 );
 
@@ -70,6 +73,8 @@ void test_container(Container & c, const Data & d)
 template< class Container, class Data >
 void test_sequence_container(Container & c, const Data & d)
 {
+    typedef typename Container::const_iterator const_iterator;
+
     assert( d.size() > 2 );
 
     c.clear();
@@ -88,13 +93,14 @@ void test_sequence_container(Container & c, const Data & d)
     BOOST_TEST( c.size() <= c.max_size() );
     BOOST_TEST( ! c.empty() );
 
-    c.erase( c.begin() );
+    c.erase( const_iterator(c.begin()) );
 
     BOOST_TEST( c.size() == 1 );
 
-    c.insert( c.begin(), *(++d.begin()) );
+    c.insert( const_iterator(c.begin()), *(++d.begin()) );
+    c.insert( const_iterator(c.begin()), 10, *(++d.begin()) );
 
-    c.erase( c.begin(), c.end() );
+    c.erase( const_iterator(c.begin()), const_iterator(c.end()) );
 
     BOOST_TEST( c.empty() );
 
@@ -120,7 +126,7 @@ void test_sequence_container(Container & c, const Data & d)
     // Check insert(IterPos,InputIter,InputIter)
     
     c.clear();
-    c.insert( c.begin(), d.begin(), d.end() );
+    c.insert( const_iterator(c.begin()), d.begin(), d.end() );
     c.insert( boost::next(c.begin(),2), d.begin(), d.end() );
                    
     BOOST_TEST( std::equal( boost::next(c.begin(),2)

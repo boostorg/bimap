@@ -149,17 +149,17 @@ for these types of containers.
         std::pair<iterator,bool> ``[link reference_vector_of_push_back_value push_back]``(const value_type & x);
         void                     pop_back();
 
-        std::pair<iterator,bool> ``[link reference_vector_of_insert_iterator_value insert]``(iterator position, const value_type & x);
+        std::pair<iterator,bool> ``[link reference_vector_of_insert_iterator_value insert]``(const_iterator position, const value_type & x);
 
-        void ``[link reference_vector_of_insert_iterator_size_value insert]``(iterator position, size_type m, const value_type & x);
+        void ``[link reference_vector_of_insert_iterator_size_value insert]``(const_iterator position, size_type m, const value_type & x);
 
         template< class InputIterator>
-        void ``[link reference_vector_of_insert_iterator_iterator_iterator insert]``(iterator position, InputIterator first, InputIterator last);
+        void ``[link reference_vector_of_insert_iterator_iterator_iterator insert]``(const_iterator position, InputIterator first, InputIterator last);
 
-        iterator ``[link reference_vector_of_erase_iterator erase]``(iterator position);
-        iterator ``[link reference_vector_of_erase_iterator_iterator erase]``(iterator first, iterator last);
+        iterator ``[link reference_vector_of_erase_iterator erase]``(const_iterator position);
+        iterator ``[link reference_vector_of_erase_iterator_iterator erase]``(const_iterator first, iterator last);
 
-        bool ``[link reference_vector_of_replace_iterator_value replace]``(iterator position, const value_type & x);
+        bool ``[link reference_vector_of_replace_iterator_value replace]``(const_iterator position, const value_type & x);
 
         // Only in map views
         // {
@@ -168,16 +168,16 @@ for these types of containers.
           typedef ``['-unspecified-]`` data_type; // Equal to mapped_type
 
           template< class CompatibleKey >
-          bool ``[link reference_vector_of_replace_key_iterator_key replace_key]``(iterator position, const CompatibleKey & x);
+          bool ``[link reference_vector_of_replace_key_iterator_key replace_key]``(const_iterator position, const CompatibleKey & x);
 
           template< class CompatibleData >
-          bool ``[link reference_vector_of_replace_data_iterator_data replace_data]``(iterator position, const CompatibleData & x);
+          bool ``[link reference_vector_of_replace_data_iterator_data replace_data]``(const_iterator position, const CompatibleData & x);
 
           template< class KeyModifier >
-          bool ``[link reference_vector_of_modify_key_iterator_modifier modify_key]``(iterator position, KeyModifier mod);
+          bool ``[link reference_vector_of_modify_key_iterator_modifier modify_key]``(const_iterator position, KeyModifier mod);
 
           template< class DataModifier >
-          bool ``[link reference_vector_of_modify_data_iterator_modifier modify_data]``(iterator position, DataModifier mod);
+          bool ``[link reference_vector_of_modify_data_iterator_modifier modify_data]``(const_iterator position, DataModifier mod);
 
         // }
 
@@ -186,10 +186,10 @@ for these types of containers.
 
         // list operations
 
-        void ``[link reference_vector_of_splice_iterator_this splice]``(iterator position, this_type & x);
-        void ``[link reference_vector_of_splice_iterator_this_iterator splice]``(iterator position, this_type & x, iterator i);
+        void ``[link reference_vector_of_splice_iterator_this splice]``(const_iterator position, this_type & x);
+        void ``[link reference_vector_of_splice_iterator_this_iterator splice]``(const_iterator position, this_type & x, const_iterator i);
         void ``[link reference_vector_of_splice_iterator_this_iterator_iterator splice]``(
-            iterator position, this_type & x, iterator first, iterator last);
+            const_iterator position, this_type & x, const_iterator first, const_iterator last);
 
         void ``[link reference_vector_of_remove_value remove]``(const value_type & value);
 
@@ -215,8 +215,8 @@ for these types of containers.
 
         // rearrange operations
 
-        void ``[link reference_vector_of_relocate_iterator_iterator relocate]``(iterator position, iterator i);
-        void ``[link reference_vector_of_relocate_iterator_iterator_iterator relocate]``(iterator position, iterator first, iterator last);
+        void ``[link reference_vector_of_relocate_iterator_iterator relocate]``(const_iterator position, iterator i);
+        void ``[link reference_vector_of_relocate_iterator_iterator_iterator relocate]``(const_iterator position, const_iterator first, const_iterator last);
     };
 
     // view comparison
@@ -400,7 +400,7 @@ causing insertion not to be allowed.
 
 [#reference_vector_of_insert_iterator_value]
 
-    std::pair<iterator,bool> insert(iterator position, const value_type & x);
+    std::pair<iterator,bool> insert(const_iterator position, const value_type & x);
 
 * [*Requires: ] `position` is a valid iterator of the view.
 * [*Effects:] Inserts `x` before position if insertion is allowed by all
@@ -416,7 +416,7 @@ insertion not to be allowed.
 
 [#reference_vector_of_insert_iterator_size_value]
 
-    void insert(iterator position, size_type m, const value_type & x);
+    void insert(const_iterator position, size_type m, const value_type & x);
 
 * [*Requires: ] `position` is a valid iterator of the view.
 * [*Effects: ] `for(size_type i = 0; i < m; ++i) insert(position, x);`
@@ -427,7 +427,7 @@ insertion not to be allowed.
 [#reference_vector_of_insert_iterator_iterator_iterator]
 
     template< class InputIterator >
-    void insert(iterator position, InputIterator first, InputIterator last);
+    void insert(const_iterator position, InputIterator first, InputIterator last);
 
 * [*Requires: ] `position` is a valid iterator of the view. `InputIterator`
 is a model of __SGI_INPUT_ITERATOR__ over elements of type `value_type` or a type
@@ -443,7 +443,7 @@ of elements in `[first,last)`.
 
 [#reference_vector_of_erase_iterator]
 
-    iterator erase(iterator position);
+    iterator erase(const_iterator position);
 
 * [*Requires: ] `position` is a valid dereferenceable iterator of the view.
 * [*Effects:] Deletes the element pointed to by `position`.
@@ -455,7 +455,7 @@ one that was deleted, or `end()` if no such element exists.
 
 [#reference_vector_of_erase_iterator_iterator]
 
-    iterator erase(iterator first, iterator last);
+    iterator erase(const_iterator first, const_iterator last);
 
 * [*Requires: ] `[first,last)` is a valid range of the view.
 * [*Effects:] Deletes the elements in `[first,last)`.
@@ -467,7 +467,7 @@ one that was deleted, or `end()` if no such element exists.
 
 [#reference_vector_of_replace_iterator_value]
 
-    bool replace(iterator position, const value_type & x);
+    bool replace(const_iterator position, const value_type & x);
 
 * [*Requires: ] `position` is a valid dereferenceable iterator of the view.
 * [*Effects:] Assigns the value x to the element pointed to by position into
@@ -486,7 +486,7 @@ original state.
 [#reference_vector_of_replace_key_iterator_key]
 
     template< class CompatibleKey >
-    bool replace_key(iterator position, const CompatibleKey & x);
+    bool replace_key(const_iterator position, const CompatibleKey & x);
 
 * [*Requires: ] `position` is a valid dereferenceable iterator of the set view.
 `CompatibleKey` can be assigned to `key_type`.
@@ -505,7 +505,7 @@ its original state.
 [#reference_vector_of_replace_data_iterator_data]
 
     template< class CompatibleData >
-    bool replace_data(iterator position, const CompatibleData & x);
+    bool replace_data(const_iterator position, const CompatibleData & x);
 
 * [*Requires: ] `position` is a valid dereferenceable iterator of the set view.
 `CompatibleKey` can be assigned to `mapped_type`.
@@ -524,7 +524,7 @@ its original state.
 [#reference_vector_of_modify_key_iterator_modifier]
 
     template< class KeyModifier >
-    bool modify_key(iterator position, KeyModifier mod);
+    bool modify_key(const_iterator position, KeyModifier mod);
 
 * [*Requires: ] `KeyModifier` is a model of __SGI_UNARY_FUNCTION__ accepting arguments of
 type: `key_type&`; `position` is a valid dereferenceable iterator of the view.
@@ -544,7 +544,7 @@ operation (except possibly mod), then the element pointed to by position is eras
 [#reference_vector_of_modify_data_iterator_modifier]
 
     template< class DataModifier >
-    bool modify_data(iterator position, DataModifier mod);
+    bool modify_data(const_iterator position, DataModifier mod);
 
 * [*Requires: ] `DataModifier` is a model of __SGI_UNARY_FUNCTION__ accepting arguments of
 type: `mapped_type&`; `position` is a valid dereferenceable iterator of the view.
@@ -564,7 +564,7 @@ operation (except possibly mod), then the element pointed to by position is eras
 [#reference_vector_of_modify_iterator_modifier]
 
     template< class Modifier >
-    bool modify(iterator position, Modifier mod);
+    bool modify(const_iterator position, Modifier mod);
 
 * [*Requires: ] `Modifier` is a model of __SGI_BINARY_FUNCTION__ accepting arguments of
 type: `first_type&` and `second_type&` for ['Map View] or `left_type&` and `right_type&`
@@ -596,7 +596,7 @@ the associated complexity bounds differ in general.
 
 [#reference_vector_of_splice_iterator_this]
 
-    void splice(iterator position, this_type & x);
+    void splice(const_iterator position, this_type & x);
 
 * [*Requires: ] `position` is a valid iterator of the view. `&x!=this`.
 * [*Effects:] Inserts the contents of `x` before position, in the same order
@@ -608,10 +608,10 @@ as they were in `x`. Those elements successfully inserted are erased from `x`.
 
 [#reference_vector_of_splice_iterator_this_iterator]
 
-    void splice(iterator position, this_type & x,iterator i);
+    void splice(const_iterator position, this_type & x,const_iterator i);
 
 * [*Requires: ] `position` is a valid iterator of the view. `i` is a valid
-dereferenceable iterator `x`.
+dereferenceable iterator of `x`.
 * [*Effects:] Inserts the element pointed to by `i` before `position`: if
 insertion is successful, the element is erased from `x`. In the special
 case `&x==this`, no copy or deletion is performed, and the operation is
@@ -625,7 +625,7 @@ otherwise O(shl(end()-position,1) + I(n) + D(n)).
 
 [#reference_vector_of_splice_iterator_this_iterator_iterator]
 
-    void splice(iterator position, this_type & x, iterator first, iterator last);
+    void splice(const_iterator position, this_type & x, const_iterator first, const_iterator last);
 
 * [*Requires: ] `position` is a valid iterator of the view. `first` and
 `last` are valid iterators of `x`. `last` is reachable from `first`. `position` is
@@ -775,7 +775,7 @@ of elements inside the index.
 
 [#reference_vector_of_relocate_iterator_iterator]
 
-    void relocate(iterator position, iterator i);
+    void relocate(const_iterator position, const_iterator i);
 
 * [*Requires: ] `position` is a valid iterator of the view. `i` is a valid
 dereferenceable iterator of the view.
@@ -788,7 +788,7 @@ If `position==i`, no operation is performed.
 
 [#reference_vector_of_relocate_iterator_iterator_iterator]
 
-    void relocate(iterator position, iterator first, iterator last);
+    void relocate(const_iterator position, const_iterator first, const_iterator last);
 
 * [*Requires: ] `position` is a valid iterator of the view. `first` and `last` are
 valid iterators of the view. `last` is reachable from `first`. `position` is not

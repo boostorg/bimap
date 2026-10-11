@@ -1,6 +1,7 @@
 // Boost.Bimap
 //
 // Copyright (c) 2006-2007 Matias Capeletto
+// Copyright (c) 2026 Joaquin M Lopez Munoz
 //
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
@@ -53,7 +54,7 @@ std::pair<BOOST_DEDUCED_TYPENAME base_::iterator, bool> insert(              \
 }                                                                            \
                                                                              \
 BOOST_DEDUCED_TYPENAME base_::iterator insert(                               \
-    BOOST_DEDUCED_TYPENAME base_::iterator pos,                              \
+    BOOST_DEDUCED_TYPENAME base_::const_iterator pos,                        \
         BOOST_DEDUCED_TYPENAME ::boost::call_traits<                         \
             BOOST_DEDUCED_TYPENAME base_::value_type >::param_type x)        \
 {                                                                            \

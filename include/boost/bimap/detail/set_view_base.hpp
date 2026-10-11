@@ -1,6 +1,7 @@
 // Boost.Bimap
 //
 // Copyright (c) 2006-2007 Matias Capeletto
+// Copyright (c) 2026 Joaquin M Lopez Munoz
 //
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
@@ -181,11 +182,11 @@ class set_view_base
     typedef BOOST_DEDUCED_TYPENAME Index::value_type                          value_type_;
 
     typedef ::boost::bimaps::detail::
-                    set_view_iterator<BOOST_DEDUCED_TYPENAME Index::iterator>   iterator_;
+                    const_set_view_iterator<BOOST_DEDUCED_TYPENAME Index::iterator> const_iterator_;
 
     public:
 
-    bool replace(iterator_ position,
+    bool replace(const_iterator_ position,
                  const value_type_ & x)
     {
         return derived().base().replace(
@@ -194,7 +195,7 @@ class set_view_base
     }
 
     template< class CompatibleLeftType >
-    bool replace_left(iterator_ position,
+    bool replace_left(const_iterator_ position,
                       const CompatibleLeftType & l)
     {
         return derived().base().replace(
@@ -204,7 +205,7 @@ class set_view_base
     }
 
     template< class CompatibleRightType >
-    bool replace_right(iterator_ position,
+    bool replace_right(const_iterator_ position,
                        const CompatibleRightType & r)
     {
         return derived().base().replace(
@@ -216,7 +217,7 @@ class set_view_base
     /* This function may be provided in the future
 
     template< class Modifier >
-    bool modify(iterator_ position,
+    bool modify(const_iterator_ position,
                 Modifier mod)
     {
         return derived().base().modify(
@@ -248,7 +249,7 @@ class set_view_base
     */
     /*
     template< class Modifier >
-    bool modify_left(iterator_ position, Modifier mod)
+    bool modify_left(const_iterator_ position, Modifier mod)
     {
         typedef BOOST_DEDUCED_TYPENAME ::boost::bimaps::relation::support::
         data_extractor
@@ -276,7 +277,7 @@ class set_view_base
     }
 
     template< class Modifier >
-    bool modify_right(iterator_ position, Modifier mod)
+    bool modify_right(const_iterator_ position, Modifier mod)
     {
         typedef BOOST_DEDUCED_TYPENAME ::boost::bimaps::relation::support::
         data_extractor

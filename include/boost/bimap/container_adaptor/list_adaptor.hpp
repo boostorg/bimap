@@ -1,6 +1,7 @@
 // Boost.Bimap
 //
 // Copyright (c) 2006-2007 Matias Capeletto
+// Copyright (c) 2026 Joaquin M Lopez Munoz
 //
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
@@ -84,7 +85,7 @@ class list_adaptor :
 
     public:
 
-    void splice(Iterator position, list_adaptor & x)
+    void splice(ConstIterator position, list_adaptor & x)
     {
         this->base().splice(
             this->template functor<BOOST_DEDUCED_TYPENAME base_::iterator_to_base>()
@@ -93,7 +94,7 @@ class list_adaptor :
         );
     }
 
-    void splice(Iterator position, list_adaptor & x, Iterator i)
+    void splice(ConstIterator position, list_adaptor & x, ConstIterator i)
     {
         this->base().splice(
             this->template functor<BOOST_DEDUCED_TYPENAME base_::iterator_to_base>()
@@ -103,8 +104,8 @@ class list_adaptor :
         );
     }
 
-    void splice(Iterator position, list_adaptor & x, 
-                Iterator first, Iterator last)
+    void splice(ConstIterator position, list_adaptor & x, 
+                ConstIterator first, ConstIterator last)
     {
         this->base().splice(
             this->template functor<BOOST_DEDUCED_TYPENAME base_::iterator_to_base>()

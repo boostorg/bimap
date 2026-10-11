@@ -1,6 +1,7 @@
 // Boost.Bimap
 //
 // Copyright (c) 2006-2007 Matias Capeletto
+// Copyright (c) 2026 Joaquin M Lopez Munoz
 //
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
@@ -43,7 +44,7 @@ void test_bimap_modify()
 
     // successful replace in left map view
     {
-        bm::left_iterator i = b.left.begin();
+        bm::left_const_iterator i = b.left.begin();
 
         result = b.left.replace( i, bm::left_value_type(1,100) );
 
@@ -69,7 +70,7 @@ void test_bimap_modify()
 
     // successful replace in right map view
     {
-        bm::right_iterator i = b.right.begin();
+        bm::right_const_iterator i = b.right.begin();
 
         result = b.right.replace( i, bm::right_value_type(100,1) );
 
@@ -95,7 +96,7 @@ void test_bimap_modify()
 
     // successful replace in set of relations view
     {
-        bm::iterator i = b.begin();
+        bm::const_iterator i = b.begin();
 
         result = b.replace( i, bm::value_type(1,100) );
 
@@ -126,7 +127,7 @@ void test_bimap_modify()
 
     // fail to replace in left map view
     {
-        bm::left_iterator i = b.left.begin();
+        bm::left_const_iterator i = b.left.begin();
 
         result = b.left.replace( i, bm::left_value_type(2,100) );
 
@@ -186,7 +187,7 @@ void test_bimap_replace_with_info()
  
     // Use set view
     {
-        bm::iterator i = b.begin();
+        bm::const_iterator i = b.begin();
 
         bool result = b.replace( i, bm::value_type(1,100,-1) );
 
@@ -212,7 +213,7 @@ void test_bimap_replace_with_info()
 
     // Use map view
     {
-        bm::left_iterator i = b.left.begin();
+        bm::left_const_iterator i = b.left.begin();
 
         bool result = b.left.replace( i, bm::left_value_type(1,100,-1) );
 

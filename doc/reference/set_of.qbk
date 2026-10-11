@@ -152,33 +152,35 @@ look at it as a whole, you will be using a set view.
 
         std::pair<iterator,bool> ``[link reference_set_of_insert_value insert]``(const value_type & x);
 
-        iterator ``[link reference_set_of_insert_iterator_value insert]``(iterator position, const value_type & x);
+        iterator ``[link reference_set_of_insert_iterator_value insert]``(const_iterator position, const value_type & x);
 
         template< class InputIterator>
         void ``[link reference_set_of_insert_iterator_iterator insert]``(InputIterator first,  InputIterator last);
 
         iterator ``[link reference_set_of_erase_iterator erase]``(iterator position);
 
+        iterator ``[link reference_set_of_erase_iterator erase]``(const_iterator position);
+
         size_type ``[link reference_set_of_erase_key erase]``(const key_type & x);
 
-        iterator ``[link reference_set_of_erase_iterator_iterator erase]``(iterator first,  iterator last);
+        iterator ``[link reference_set_of_erase_iterator_iterator erase]``(const_iterator first,  const_iterator last);
 
-        bool ``[link reference_set_of_replace_iterator_value replace]``(iterator position, const value_type& x);
+        bool ``[link reference_set_of_replace_iterator_value replace]``(const_iterator position, const value_type& x);
 
         // Only in map views
         // {
 
           template< class CompatibleKey >
-          bool ``[link reference_set_of_replace_key_iterator_key replace_key]``(iterator position, const CompatibleKey & x);
+          bool ``[link reference_set_of_replace_key_iterator_key replace_key]``(const_iterator position, const CompatibleKey & x);
 
           template< class CompatibleData >
-          bool ``[link reference_set_of_replace_data_iterator_data replace_data]``(iterator position, const CompatibleData & x);
+          bool ``[link reference_set_of_replace_data_iterator_data replace_data]``(const_iterator position, const CompatibleData & x);
 
           template< class KeyModifier >
-          bool ``[link reference_set_of_modify_key_iterator_modifier modify_key]``(iterator position, KeyModifier mod);
+          bool ``[link reference_set_of_modify_key_iterator_modifier modify_key]``(const_iterator position, KeyModifier mod);
 
           template< class DataModifier >
-          bool ``[link reference_set_of_modify_data_iterator_modifier modify_data]``(iterator position, DataModifier mod);
+          bool ``[link reference_set_of_modify_data_iterator_modifier modify_data]``(const_iterator position, DataModifier mod);
 
         // }
 
@@ -292,7 +294,7 @@ look at it as a whole, you will be using a set view.
 [/ Functions that may be implemented some day
 
         template< class Modifier>
-        bool ``[link reference_set_of_modify_iterator_modifier modify]``(iterator position, Modifier mod);
+        bool ``[link reference_set_of_modify_iterator_modifier modify]``(const_iterator position, Modifier mod);
 
         template< class CompatibleKey, class CompatibleCompare >
         iterator find(const CompatibleKey & x,
@@ -424,7 +426,7 @@ Note that more than one element can be causing insertion not to be allowed.
 
 [#reference_set_of_insert_iterator_value]
 
-    iterator insert(iterator position, const value_type & x);
+    iterator insert(const_iterator position, const value_type & x);
 
 * [*Requires: ] `position` is a valid iterator of the view.
 * [*Effects: ] `position` is used as a hint to improve the efficiency of the operation. Inserts `x` into the `bimap` to which the view belongs if
@@ -460,7 +462,9 @@ belongs. `last` is reachable from `first`.
 
     iterator erase(iterator position);
 
-* [*Requires: ] `position` is a valid dereferenceable iterator if the set view.
+    iterator erase(const_iterator position);
+
+* [*Requires: ] `position` is a valid dereferenceable iterator of the set view.
 * [*Effects:] Deletes the element pointed to by `position`.
 * [*Returns:] An iterator pointing to the element immediately following
 the one that was deleted, or `end()` if no such element exists.
@@ -482,7 +486,7 @@ the one that was deleted, or `end()` if no such element exists.
 
 [#reference_set_of_erase_iterator_iterator]
 
-    iterator erase(iterator first, iterator last);
+    iterator erase(const_iterator first, const_iterator last);
 
 * [*Requires: ] `[first,last)` is a valid range of the view.
 * [*Effects:] Deletes the elements in `[first,last)`.
@@ -495,7 +499,7 @@ in `[first,last)`.
 
 [#reference_set_of_replace_iterator_value]
 
-    bool replace(iterator position, const value_type& x);
+    bool replace(const_iterator position, const value_type& x);
 
 * [*Requires: ] `position` is a valid dereferenceable iterator of the set view.
 * [*Effects:] Assigns the value `x` to the element pointed to by `position` into
@@ -515,7 +519,7 @@ its original state.
 [#reference_set_of_replace_key_iterator_key]
 
     template< class CompatibleKey >
-    bool replace_key(iterator position, const CompatibleKey & x);
+    bool replace_key(const_iterator position, const CompatibleKey & x);
 
 * [*Requires: ] `position` is a valid dereferenceable iterator of the set view.
 `CompatibleKey` can be assigned to `key_type`.
@@ -536,7 +540,7 @@ its original state.
 [#reference_set_of_replace_data_iterator_data]
 
     template< class CompatibleData >
-    bool replace_data(iterator position, const CompatibleData & x);
+    bool replace_data(const_iterator position, const CompatibleData & x);
 
 * [*Requires: ] `position` is a valid dereferenceable iterator of the set view.
 `CompatibleKey` can be assigned to `mapped_type`.
@@ -557,7 +561,7 @@ its original state.
 [#reference_set_of_modify_key_iterator_modifier]
 
     template< class KeyModifier >
-    bool modify_key(iterator position, KeyModifier mod);
+    bool modify_key(const_iterator position, KeyModifier mod);
 
 * [*Requires: ] `KeyModifier` is a model of __SGI_UNARY_FUNCTION__ accepting arguments of
 type: `key_type&`; `position` is a valid dereferenceable iterator of the view.
@@ -579,7 +583,7 @@ operation (except possibly mod), then the element pointed to by position is eras
 [#reference_set_of_modify_data_iterator_modifier]
 
     template< class DataModifier >
-    bool modify_data(iterator position, DataModifier mod);
+    bool modify_data(const_iterator position, DataModifier mod);
 
 * [*Requires: ] `DataModifier` is a model of __SGI_UNARY_FUNCTION__ accepting arguments of
 type: `mapped_type&`; `position` is a valid dereferenceable iterator of the view.
@@ -603,7 +607,7 @@ operation (except possibly mod), then the element pointed to by position is eras
 [#reference_set_of_modify_iterator_modifier]
 
     template< class Modifier >
-    bool modify(iterator position, Modifier mod);
+    bool modify(const_iterator position, Modifier mod);
 
 * [*Requires: ] `Modifier` is a model of __SGI_BINARY_FUNCTION__ accepting arguments of
 type: `first_type&` and `second_type&` for ['Map View] or `left_type&` and `right_type&`

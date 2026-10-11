@@ -1,6 +1,7 @@
 // Boost.Bimap
 //
 // Copyright (c) 2006-2007 Matias Capeletto
+// Copyright (c) 2026 Joaquin M Lopez Munoz
 //
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
@@ -183,12 +184,17 @@ class container_adaptor
 
     iterator erase(iterator pos)
     {
+        return erase(static_cast<const_iterator>(pos));
+    }
+
+    iterator erase(const_iterator pos)
+    {
         return this->template functor<iterator_from_base>()(
             base().erase(this->template functor<iterator_to_base>()(pos))
         );
     }
 
-    iterator erase(iterator first, iterator last)
+    iterator erase(const_iterator first, const_iterator last)
     {
         return this->template functor<iterator_from_base>()(
             base().erase(
@@ -226,7 +232,7 @@ class container_adaptor
                );
     }
 
-    iterator insert(iterator pos,
+    iterator insert(const_iterator pos,
                     BOOST_DEDUCED_TYPENAME ::boost::call_traits< value_type >::param_type x)
     {
         return this->template functor<iterator_from_base>()(

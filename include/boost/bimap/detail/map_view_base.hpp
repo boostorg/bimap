@@ -1,6 +1,7 @@
 // Boost.Bimap
 //
 // Copyright (c) 2006-2007 Matias Capeletto
+// Copyright (c) 2026 Joaquin M Lopez Munoz
 //
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
@@ -115,11 +116,11 @@ class map_view_base
               BOOST_DEDUCED_TYPENAME BimapType::relation>::type value_type_;
 
     typedef 
-        ::boost::bimaps::detail::map_view_iterator<Tag,BimapType> iterator_;
+        ::boost::bimaps::detail::const_map_view_iterator<Tag,BimapType> const_iterator_;
 
     public:
 
-    bool replace(iterator_ position, const value_type_ & x)
+    bool replace(const_iterator_ position, const value_type_ & x)
     {
         return derived().base().replace(
             derived().template functor<iterator_to_base_>()(position),
@@ -128,7 +129,7 @@ class map_view_base
     }
 
     template< class CompatibleKey >
-    bool replace_key(iterator_ position, const CompatibleKey & k)
+    bool replace_key(const_iterator_ position, const CompatibleKey & k)
     {
         return derived().base().replace(
             derived().template functor<iterator_to_base_>()(position),
@@ -140,7 +141,7 @@ class map_view_base
     }
 
     template< class CompatibleData >
-    bool replace_data(iterator_ position, const CompatibleData & d)
+    bool replace_data(const_iterator_ position, const CompatibleData & d)
     {
         return derived().base().replace(
             derived().template functor<iterator_to_base_>()(position),
@@ -154,7 +155,7 @@ class map_view_base
     /* This function may be provided in the future
 
     template< class Modifier >
-    bool modify(iterator_ position, Modifier mod)
+    bool modify(const_iterator_ position, Modifier mod)
     {
         return derived().base().modify(
 
@@ -185,7 +186,7 @@ class map_view_base
     */
 
     template< class Modifier >
-    bool modify_key(iterator_ position, Modifier mod)
+    bool modify_key(const_iterator_ position, Modifier mod)
     {
         return derived().base().modify_key(
             derived().template functor<iterator_to_base_>()(position), mod
@@ -193,7 +194,7 @@ class map_view_base
     }
 
     template< class Modifier >
-    bool modify_data(iterator_ position, Modifier mod)
+    bool modify_data(const_iterator_ position, Modifier mod)
     {
         typedef BOOST_DEDUCED_TYPENAME ::boost::bimaps::relation::support::
         data_extractor
